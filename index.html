@@ -469,6 +469,8 @@ WebRTC orqali real vaqtda sinxronizatsiya &bull; Hech qanday server talab emas
 <div style="font-size:.85rem;color:var(--text2);margin-bottom:12px" id="resultDetail"></div>
 </div>
 <button class="btn btn-primary" onclick="App.goLanding()" style="margin-top:12px">🏠 Bosh sahifaga</button>
+<button class="btn btn-secondary" onclick="App.restartTest()" style="margin-top:8px">🔄 Qayta boshlash</button>
+<button class="btn btn-secondary" onclick="App.goToControlPanel()" style="margin-top:8px;display:none" id="btnGoControl">📊 Natijalarni boshqarish</button>
 </div>
 
 <script>
@@ -606,6 +608,7 @@ var state = {
   quiz: null,
   timerInterval: null,
   testStartTime: null,
+  isHostTakingTest: false,
   // file libs loaded
   pdfJsLoaded: false,
   mammothLoaded: false
@@ -695,11 +698,43 @@ function goTeacher(){
 function goStudent(){
   $('roomCodeInput').value = '';
   $('testCodeInput').value = '';
-  $('studentLoginInput').value = '';
-  $('studentPasswordInput').value = '';
   $('studentName').value = '';
   $('connStatus').innerHTML = '';
+
+  // Avtomatik login: agar bu qurilmada avval test yaratilgan bo'lsa, login/parolni to'ldirish
+  try{
+    var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
+    var lastTest = null;
+    var lastTime = 0;
+    for(var key in saved){
+      if(saved[key].createdAt && saved[key].createdAt > lastTime){
+        lastTime = saved[key].createdAt;
+        lastTest = saved[key];
+      }
+    }
+    if(lastTest){
+      $('studentLoginInput').value = lastTest.login || '';
+      $('studentPasswordInput').value = lastTest.password || '';
+      if(lastTest.roomCode) $('roomCodeInput').value = lastTest.roomCode;
+      // Ismni ham saqlash
+      var savedName = localStorage.getItem('zakovat_student_name') || '';
+      if(savedName) $('studentName').value = savedName;
+    }
+  }catch(e){}
+
   showScreen('screenStudentLogin');
+
+  // Agar barcha maydonlar to'ldirilgan bo'lsa, avtomatik ulanish
+  setTimeout(function(){
+    var roomCode = $('roomCodeInput').value.trim();
+    var login = $('studentLoginInput').value.trim();
+    var password = $('studentPasswordInput').value.trim();
+    var name = $('studentName').value.trim();
+    if(roomCode && login && password && name){
+      // Barcha ma'lumotlar bor - avtomatik ulanish
+      connectToRoom();
+    }
+  }, 300);
 }
 
 // ========== TEACHER WIZARD ==========
@@ -1267,14 +1302,19 @@ function updateControlResults(){
 }
 
 function startGroupTest(){
-  if(state.connections.length === 0){
-    toast('Kamida 1 ta talaba ulangan bo\'lishi kerak','error');
-    return;
-  }
+  // Admin ham testga qo'shiladi - talabalar bo'lmasa ham boshlash mumkin
   broadcastToAll({type:'start_test'});
   toast('Test boshlandi!','success');
   $('btnStartGroup').disabled = true;
   $('btnStartGroup').textContent = '✅ Test boshlangan';
+
+  // Admin ham testga qo'shilishi - o'qituvchi ham talabalar kabi test topshiradi
+  var adminName = (state.testConfig && state.testConfig.groupName ? state.testConfig.groupName : 'Guruh') + ' (Admin)';
+  $('studentName').value = adminName;
+  startQuiz();
+  
+  // Natijalarni o'qituvchi o'z natijasini ham ko'rsatish
+  state.isHostTakingTest = true;
 }
 
 // ========== PEERJS CLIENT (STUDENT) ==========
@@ -1492,11 +1532,122 @@ function loginWithCredentials(){
   }
 }
 
+// ========== QUIZ PROGRESS SAVE/RESTORE ==========
+function saveQuizProgress(){
+  if(!state.quiz || !state.testConfig) return;
+  try{
+    var progress = {
+      roomCode: state.testConfig.roomCode || '',
+      current: state.quiz.current,
+      answered: state.quiz.answered,
+      selectedOptions: state.quiz.selectedOptions,
+      correctCount: state.quiz.correctCount,
+      wrongCount: state.quiz.wrongCount,
+      questions: state.quiz.questions,
+      startTime: state.quiz.startTime,
+      studentName: $('studentName').value.trim() || '',
+      savedAt: Date.now()
+    };
+    localStorage.setItem('zakovat_quiz_progress', JSON.stringify(progress));
+  }catch(e){ console.error('Save quiz progress error:', e); }
+}
+
+function restoreQuizProgress(){
+  try{
+    var saved = localStorage.getItem('zakovat_quiz_progress');
+    if(!saved) return false;
+    var progress = JSON.parse(saved);
+    if(!progress || !progress.questions || progress.questions.length === 0) return false;
+
+    // 30 daqiqadan eski progressni o'chirish
+    if(progress.savedAt && (Date.now() - progress.savedAt > 30 * 60 * 1000)){
+      localStorage.removeItem('zakovat_quiz_progress');
+      return false;
+    }
+
+    // Test ma'lumotlarini tiklash
+    if(!state.testConfig && progress.roomCode){
+      var tests = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
+      if(tests[progress.roomCode]){
+        state.testConfig = tests[progress.roomCode];
+      }
+    }
+    if(!state.testConfig) return false;
+
+    // Quiz holatini tiklash
+    state.quiz = {
+      questions: progress.questions,
+      current: progress.current || 0,
+      answered: progress.answered || new Array(progress.questions.length).fill(false),
+      selectedOptions: progress.selectedOptions || new Array(progress.questions.length).fill(-1),
+      correctCount: progress.correctCount || 0,
+      wrongCount: progress.wrongCount || 0,
+      totalQuestions: progress.questions.length,
+      timePerQuestion: state.testConfig.time || 30,
+      timeLeft: state.testConfig.time || 30,
+      isWaitingForCorrect: false,
+      startTime: progress.startTime || Date.now()
+    };
+
+    if(progress.studentName) $('studentName').value = progress.studentName;
+
+    $('testTitle').textContent = state.testConfig.name;
+    $('qTotal').textContent = state.quiz.totalQuestions;
+    $('btnFinish').style.display = 'none';
+
+    renderQuestion();
+    renderQuestionNav();
+    startTimer();
+    showScreen('screenTest');
+    document.addEventListener('copy', preventCopy);
+    document.addEventListener('cut', preventCopy);
+    document.addEventListener('contextmenu', preventCopy);
+
+    return true;
+  }catch(e){
+    console.error('Restore quiz progress error:', e);
+    return false;
+  }
+}
+
+function showResumeTestModal(){
+  var modalHtml = '<div style="text-align:center">';
+  modalHtml += '<div style="font-size:3rem;margin-bottom:8px">📝</div>';
+  modalHtml += '<h2 style="margin-bottom:12px">Test davom etmoqda</h2>';
+  modalHtml += '<p style="color:var(--text2);font-size:.9rem;margin-bottom:20px">Siz avval boshlagan test topilmadi. Davom ettirish yoki qayta boshlashni tanlang.</p>';
+  modalHtml += '<div class="modal-actions" style="flex-direction:column;gap:8px">';
+  modalHtml += '<button class="btn btn-primary btn-block" onclick="App.closeModal();App.resumeTest()">▶️ Davom ettirish</button>';
+  modalHtml += '<button class="btn btn-secondary btn-block" onclick="App.closeModal();App.freshStartTest()">🔄 Qayta boshlash</button>';
+  modalHtml += '</div></div>';
+  showModal(modalHtml);
+}
+
+function resumeTestFn(){
+  if(!restoreQuizProgress()){
+    toast('Test topilmadi, qayta boshlang','error');
+  }
+}
+
+function freshStartTestFn(){
+  try{ localStorage.removeItem('zakovat_quiz_progress'); }catch(e){}
+  if(state.testConfig){
+    startQuiz();
+  } else {
+    goLanding();
+  }
+}
+
 // ========== QUIZ ENGINE ==========
 function startQuiz(){
   if(!state.testConfig || !state.testConfig.questions || state.testConfig.questions.length === 0){
     toast('Test ma\'lumotlari topilmadi','error'); return;
   }
+
+  // Talaba ismini saqlash (keyingi kirishda auto-to'ldirish uchun)
+  try{
+    var sName = $('studentName').value.trim();
+    if(sName) localStorage.setItem('zakovat_student_name', sName);
+  }catch(e){}
 
   // Shuffle questions
   var shuffled = shuffleArray(state.testConfig.questions);
@@ -1534,6 +1685,9 @@ function startQuiz(){
   renderQuestionNav();
   startTimer();
   showScreen('screenTest');
+
+  // Quiz holatini localStorage ga saqlash (sahifa yangilansa ham tiklash uchun)
+  saveQuizProgress();
 
   // Prevent copy/cut/right-click during test
   document.addEventListener('copy', preventCopy);
@@ -1599,6 +1753,7 @@ function selectOption(idx){
       if(state.quiz.correctCount + state.quiz.wrongCount >= 1){
         $('btnFinish').style.display = 'block';
       }
+      saveQuizProgress();
     }, 800);
   } else {
     btns[idx].classList.add('wrong');
@@ -1631,6 +1786,7 @@ function selectOption(idx){
         if(state.quiz.correctCount >= 1 || state.quiz.answered.some(function(a){return a;})){
           $('btnFinish').style.display = 'block';
         }
+        saveQuizProgress();
       }, 600);
     };
   }
@@ -1714,6 +1870,7 @@ function timeUp(){
         renderQuestionNav();
       }
       $('btnFinish').style.display = 'block';
+      saveQuizProgress();
     }, 600);
   };
 }
@@ -1772,6 +1929,17 @@ function finishTest(){
     }catch(e){}
   }
 
+  // Agar o'qituvchi(o'zi) testni topshirayotgan bo'lsa, natijani admin paneliga ham qo'shish
+  if(state.isHostTakingTest && state.isHost){
+    state.results.push(result);
+    // Natijalarni barcha talabalarga yuborish
+    broadcastToAll({type:'student_finished', name: result.name, result: result});
+    state.isHostTakingTest = false;
+  }
+
+  // Quiz holatini tozalash (localStorage dan ham)
+  try{ localStorage.removeItem('zakovat_quiz_progress'); }catch(e){}
+
   // Remove copy prevention
   document.removeEventListener('copy', preventCopy);
   document.removeEventListener('cut', preventCopy);
@@ -1779,6 +1947,13 @@ function finishTest(){
 
   state.quiz = null;
   showScreen('screenResult');
+
+  // Agar admin testni topshirgan bo'lsa, "Natijalarni boshqarish" tugmasini ko'rsatish
+  if(state.isHost){
+    $('btnGoControl').style.display = 'inline-flex';
+  } else {
+    $('btnGoControl').style.display = 'none';
+  }
 }
 
 function formatTime(seconds){
@@ -1786,6 +1961,35 @@ function formatTime(seconds){
   var s = seconds % 60;
   if(m > 0) return m + ' daq ' + s + ' son';
   return s + ' soniya';
+}
+
+// ========== RESTART TEST ==========
+function restartTest(){
+  if(!state.testConfig || !state.testConfig.questions || state.testConfig.questions.length === 0){
+    toast('Test ma\'lumotlari topilmadi','error');
+    goLanding();
+    return;
+  }
+  // Testni qayta boshlash
+  toast('Test qayta boshlandi!','info');
+  startQuiz();
+}
+
+// ========== GO TO CONTROL PANEL ==========
+function goToControlPanel(){
+  if(state.isHost && state.testConfig){
+    // Admin natijalar paneliga qaytish - PeerJS ulanishlari saqlanib qoladi
+    updateControlMembers();
+    updateControlResults();
+    // Boshlash tugmasini yangilash
+    if(state.results.length > 0){
+      $('btnStartGroup').disabled = true;
+      $('btnStartGroup').textContent = '✅ Test boshlangan';
+    }
+    showScreen('screenTeacherControl');
+  } else {
+    goLanding();
+  }
 }
 
 // ========== CLEANUP ==========
@@ -1832,8 +2036,28 @@ return {
   importTestCode: importTestCode,
   loginWithCredentials: loginWithCredentials,
   leaveRoom: leaveRoom,
-  finishTest: finishTest
+  finishTest: finishTest,
+  restartTest: restartTest,
+  goToControlPanel: goToControlPanel,
+  resumeTest: resumeTestFn,
+  freshStartTest: freshStartTestFn
 };
+
+// Sahifa yuklanganda test progressni tekshirish
+try{
+  var _savedProgress = localStorage.getItem('zakovat_quiz_progress');
+  if(_savedProgress){
+    var _p = JSON.parse(_savedProgress);
+    if(_p && _p.questions && _p.questions.length > 0){
+      // 30 daqiqadan eski bo'lmasa - davom ettirishni taklif qilish
+      if(!_p.savedAt || (Date.now() - _p.savedAt <= 30 * 60 * 1000)){
+        setTimeout(function(){ showResumeTestModal(); }, 500);
+      } else {
+        try{ localStorage.removeItem('zakovat_quiz_progress'); }catch(e){}
+      }
+    }
+  }
+}catch(e){}
 
 })();
 </script>
