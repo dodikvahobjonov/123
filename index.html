@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="google-site-verification" content="xZakovatPlaceholderVerify">
+<meta name="description" content="Zakovat - Axborot tizimlari bo'yicha interaktiv test platformasi. Test tuzing, guruhda boshqaring va real vaqtda natijalarni kuzating.">
+<meta name="keywords" content="zakovat, test, axborot tizimi, quiz, LMS, o'qituvchi, talaba, O'zbekiston">
+<meta name="author" content="Zakovat">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#6c3ce0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Zakovat">
+<meta property="og:title" content="Zakovat - Interaktiv Test Platformasi">
+<meta property="og:description" content="Axborot tizimlari bo'yicha test tuzing va guruhda boshqaring">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://zakovat.app">
+<meta property="og:image" content="https://zakovat.app/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zakovat - Interaktiv Test Platformasi">
+<meta name="twitter:description" content="Axborot tizimlari bo'yicha test tuzing va guruhda boshqaring">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWmFrb3ZhdCIsInNob3J0X25hbWUiOiJaYWtvdmF0Iiwic3RhcnRfdXJsIjoiLi8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYwYTFlIiwidGhlbWVfY29sb3IiOiIjNmMzY2UwIn0=">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Zakovat","description":"Interaktiv test platformasi","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"UZS"}}
+</script>
+<title>Zakovat - Interaktiv Test Platformasi</title>
+<style>
+:root{--primary:#6c3ce0;--primary-light:#8b5cf6;--primary-dark:#5b21b6;--bg:#0f0a1e;--bg2:#1a1333;--bg3:#241b44;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--info:#3b82f6;--text:#e2e0eb;--text2:#a8a2bd;--card:rgba(40,30,80,0.85);--border:rgba(108,60,224,0.3);--radius:12px;--shadow:0 4px 24px rgba(0,0,0,0.4)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;line-height:1.5}
+body.no-scroll{overflow:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--primary);border-radius:3px}
+.screen{display:none;min-height:100vh;padding:20px;animation:fadeIn .3s ease}
+.screen.active{display:flex;flex-direction:column;align-items:center}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes glow{0%,100%{box-shadow:0 0 5px var(--primary),0 0 10px var(--primary)}50%{box-shadow:0 0 20px var(--primary),0 0 40px var(--primary)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.bg-gradient{background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 50%,#1e0f3d 100%);position:fixed;top:0;left:0;width:100%;height:100%;z-index:-2}
+.bg-orb{position:fixed;border-radius:50%;filter:blur(80px);opacity:.15;z-index:-1}
+.bg-orb-1{width:400px;height:400px;background:var(--primary);top:-100px;right:-100px;animation:float 8s ease-in-out infinite}
+.bg-orb-2{width:300px;height:300px;background:#e040fb;bottom:-50px;left:-80px;animation:float 10s ease-in-out infinite 2s}
+.card{background:var(--card);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--radius);padding:24px;width:100%;max-width:500px;box-shadow:var(--shadow);animation:slideUp .4s ease}
+.card-wide{max-width:800px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s;min-height:44px;min-width:44px;text-decoration:none}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;box-shadow:0 4px 15px rgba(108,60,224,.4)}
+.btn-primary:hover{box-shadow:0 6px 20px rgba(108,60,224,.6);transform:translateY(-1px)}
+.btn-secondary{background:var(--bg3);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:rgba(108,60,224,.2)}
+.btn-danger{background:linear-gradient(135deg,#dc2626,#ef4444);color:#fff}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);color:#fff}
+.btn-sm{padding:8px 16px;font-size:.875rem;min-height:36px}
+.btn-block{width:100%}
+.btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.input{width:100%;padding:12px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:1rem;transition:border-color .2s}
+.input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(108,60,224,.2)}
+.input::placeholder{color:var(--text2)}
+textarea.input{resize:vertical;min-height:100px}
+select.input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a8a2bd' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+label{display:block;margin-bottom:6px;font-size:.875rem;color:var(--text2);font-weight:500}
+.form-group{margin-bottom:16px}
+.logo{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--primary-light),#e040fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:4px}
+.logo-sub{text-align:center;color:var(--text2);font-size:.9rem;margin-bottom:32px}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge-primary{background:rgba(108,60,224,.2);color:var(--primary-light)}
+.badge-success{background:rgba(16,185,129,.2);color:var(--success)}
+.badge-danger{background:rgba(239,68,68,.2);color:var(--danger)}
+.badge-warning{background:rgba(245,158,11,.2);color:var(--warning)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot-green{background:var(--success);animation:pulse 2s infinite}
+.dot-red{background:var(--danger)}
+.dot-yellow{background:var(--warning);animation:pulse 1s infinite}
+.progress-bar{height:6px;background:var(--bg2);border-radius:3px;overflow:hidden;width:100%}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-light));border-radius:3px;transition:width .3s}
+.timer-bar{height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;margin:8px 0}
+.timer-fill{height:100%;border-radius:2px;transition:width .1s linear}
+.timer-fill.safe{background:var(--success)}
+.timer-fill.warn{background:var(--warning)}
+.timer-fill.danger{background:var(--danger);animation:pulse .5s infinite}
+.toast-container{position:fixed;top:20px;right:20px;z-index:10000;display:flex;flex-direction:column;gap:8px;max-width:360px}
+.toast{padding:12px 20px;border-radius:8px;font-size:.875rem;font-weight:500;animation:slideUp .3s ease;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.toast-success{background:rgba(16,185,129,.9);color:#fff}
+.toast-error{background:rgba(239,68,68,.9);color:#fff}
+.toast-info{background:rgba(59,130,246,.9);color:#fff}
+.toast-warning{background:rgba(245,158,11,.9);color:#000}
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:9000;padding:20px}
+.modal-overlay.active{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;animation:slideUp .3s ease}
+.modal h2{margin-bottom:16px;font-size:1.25rem}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.code-display{background:var(--bg);border:2px dashed var(--border);border-radius:8px;padding:16px;text-align:center;font-family:monospace;font-size:1.5rem;font-weight:700;letter-spacing:3px;color:var(--primary-light);margin:8px 0;user-select:all}
+.copy-btn{background:var(--bg3);border:1px solid var(--border);color:var(--text2);padding:6px 12px;border-radius:6px;font-size:.75rem;cursor:pointer;transition:all .2s}
+.copy-btn:hover{color:var(--primary-light);border-color:var(--primary)}
+.step-indicator{display:flex;gap:8px;margin-bottom:24px;justify-content:center}
+.step-dot{width:36px;height:4px;border-radius:2px;background:var(--bg3);transition:all .3s}
+.step-dot.active{background:var(--primary);width:60px}
+.step-dot.done{background:var(--success)}
+.q-nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+.q-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:600;cursor:pointer;border:2px solid var(--border);background:var(--bg2);color:var(--text2);transition:all .2s}
+.q-dot.current{border-color:var(--primary);color:var(--primary-light);box-shadow:0 0 10px rgba(108,60,224,.3)}
+.q-dot.answered{background:var(--primary);border-color:var(--primary);color:#fff}
+.option-btn{width:100%;text-align:left;padding:14px 18px;background:var(--bg2);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:.95rem;cursor:pointer;transition:all .2s;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.option-btn:hover:not(.disabled){border-color:var(--primary-light);background:rgba(108,60,224,.1)}
+.option-btn.correct{border-color:var(--success);background:rgba(16,185,129,.15);color:var(--success)}
+.option-btn.wrong{border-color:var(--danger);background:rgba(239,68,68,.15);color:var(--danger);animation:shake .4s}
+.option-btn.disabled{cursor:default;opacity:.7}
+.option-letter{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem;background:var(--bg3);border:1px solid var(--border);flex-shrink:0}
+.option-btn.correct .option-letter{background:var(--success);border-color:var(--success);color:#fff}
+.option-btn.wrong .option-letter{background:var(--danger);border-color:var(--danger);color:#fff}
+.member-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg2);border-radius:8px;margin-bottom:6px}
+.member-item .name{flex:1;font-size:.9rem}
+.result-card{text-align:center;padding:32px}
+.result-score{font-size:3rem;font-weight:800;background:linear-gradient(135deg,var(--primary-light),#e040fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.result-label{color:var(--text2);font-size:.9rem;margin-bottom:4px}
+.result-stat{display:flex;justify-content:center;gap:24px;margin:20px 0}
+.stat-item{text-align:center}
+.stat-value{font-size:1.5rem;font-weight:700}
+.stat-item.green .stat-value{color:var(--success)}
+.stat-item.red .stat-value{color:var(--danger)}
+.stat-item.yellow .stat-value{color:var(--warning)}
+.tab-bar{display:flex;background:var(--bg2);border-radius:8px;padding:4px;margin-bottom:16px}
+.tab-btn{flex:1;padding:8px;text-align:center;border-radius:6px;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .2s;color:var(--text2);border:none;background:none}
+.tab-btn.active{background:var(--primary);color:#fff}
+.divider{height:1px;background:var(--border);margin:16px 0}
+.spinner{width:24px;height:24px;border:3px solid var(--bg3);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite}
+.center-spinner{display:flex;justify-content:center;padding:20px}
+.file-input-wrap{position:relative;overflow:hidden;display:inline-block;width:100%}
+.file-input-wrap input[type=file]{position:absolute;opacity:0;width:100%;height:100%;cursor:pointer;top:0;left:0}
+.file-input-label{display:flex;align-items:center;justify-content:center;gap:8px;padding:16px;border:2px dashed var(--border);border-radius:8px;color:var(--text2);cursor:pointer;transition:all .2s;text-align:center}
+.file-input-label:hover{border-color:var(--primary-light);color:var(--primary-light)}
+.conn-status{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--text2);padding:6px 12px;background:var(--bg2);border-radius:20px}
+.header-bar{width:100%;max-width:500px;display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;padding:0 4px}
+.header-bar .back-btn{background:none;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer;padding:8px;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center}
+.header-bar .back-btn:hover{color:var(--primary-light)}
+.header-bar h1{font-size:1.1rem;font-weight:600}
+.q-edit-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px}
+.q-edit-item textarea{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);padding:8px;font-size:.85rem;resize:vertical;min-height:40px}
+.q-edit-item .opt-row{display:flex;align-items:center;gap:6px;margin-top:6px}
+.q-edit-item .opt-row input{flex:1;padding:6px 10px;background:var(--bg);border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:.8rem}
+.q-edit-item .opt-row input.correct-opt{border-color:var(--success);background:rgba(16,185,129,.1)}
+.q-edit-item .radio-correct{width:18px;height:18px;accent-color:var(--success)}
+.q-edit-item .del-btn{background:none;border:none;color:var(--danger);cursor:pointer;font-size:1rem;padding:4px}
+.msg-feedback{text-align:center;padding:8px;border-radius:8px;font-weight:600;margin:10px 0;animation:slideUp .2s}
+.msg-wrong{background:rgba(239,68,68,.15);color:var(--danger)}
+.msg-correct{background:rgba(16,185,129,.15);color:var(--success)}
+.waiting-anim{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 0}
+.waiting-dots{display:flex;gap:8px;margin:16px 0}
+.waiting-dots span{width:12px;height:12px;border-radius:50%;background:var(--primary);animation:pulse 1.4s ease-in-out infinite}
+.waiting-dots span:nth-child(2){animation-delay:.2s}
+.waiting-dots span:nth-child(3){animation-delay:.4s}
+@media(max-width:640px){
+.screen{padding:12px}
+.card{padding:16px;border-radius:10px}
+.logo{font-size:2rem}
+.btn{padding:10px 18px;font-size:.9rem}
+.input{padding:10px 14px;font-size:.9rem}
+.result-score{font-size:2.2rem}
+.code-display{font-size:1.2rem;padding:12px}
+.q-dot{width:28px;height:28px;font-size:.7rem}
+.toast-container{top:10px;right:10px;left:10px;max-width:none}
+.header-bar{padding:0}
+}
+</style>
+</head>
+<body>
+<div class="bg-gradient"></div>
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)App.closeModal()">
+<div class="modal" id="modalContent"></div>
+</div>
+
+<!-- Screen 1: Landing -->
+<div class="screen active" id="screenLanding">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:500px">
+<div style="animation:float 4s ease-in-out infinite;margin-bottom:8px;font-size:4rem">📚</div>
+<div class="logo">Zakovat</div>
+<div class="logo-sub">Interaktiv test platformasi</div>
+<div class="card" style="margin-bottom:16px;cursor:pointer" onclick="App.goTeacher()">
+<div style="display:flex;align-items:center;gap:16px">
+<div style="font-size:2.5rem">✏️</div>
+<div>
+<div style="font-weight:700;font-size:1.1rem">Test tuzish</div>
+<div style="color:var(--text2);font-size:.85rem">Yangi test yarating va guruhni boshqaring</div>
+</div>
+</div>
+</div>
+<div class="card" style="cursor:pointer" onclick="App.goStudent()">
+<div style="display:flex;align-items:center;gap:16px">
+<div style="font-size:2.5rem">📝</div>
+<div>
+<div style="font-weight:700;font-size:1.1rem">Test topshirish</div>
+<div style="color:var(--text2);font-size:.85rem">Xona kodi orqali testga qo'shiling</div>
+</div>
+</div>
+</div>
+<div style="margin-top:24px;color:var(--text2);font-size:.75rem;text-align:center">
+WebRTC orqali real vaqtda sinxronizatsiya &bull; Hech qanday server talab emas
+</div>
+</div>
+</div>
+
+<!-- Screen 2: Teacher Wizard -->
+<div class="screen" id="screenTeacher">
+<div class="header-bar">
+<button class="back-btn" onclick="App.goLanding()">←</button>
+<h1>Test tuzish</h1>
+<div style="width:44px"></div>
+</div>
+<div class="step-indicator" id="stepIndicator">
+<div class="step-dot active" data-step="1"></div>
+<div class="step-dot" data-step="2"></div>
+<div class="step-dot" data-step="3"></div>
+</div>
+<div class="card card-wide" id="teacherStep1">
+<h2 style="margin-bottom:16px;font-size:1.1rem">1-qadam: Asosiy sozlamalar</h2>
+<div class="form-group">
+<label>Test nomi</label>
+<input class="input" id="testName" placeholder="Masalan: Axborot tizimlari - 1-variant">
+</div>
+<div class="form-group">
+<label>Har bir savol uchun vaqt (soniya)</label>
+<input class="input" id="testTime" type="number" min="10" max="300" value="30">
+</div>
+<div class="divider"></div>
+<div class="form-group">
+<label>Savollarni yuklash</label>
+<div class="tab-bar" id="uploadTabs">
+<button class="tab-btn active" onclick="App.setUploadTab('file')">Fayl</button>
+<button class="tab-btn" onclick="App.setUploadTab('manual')">Qo'lda kiritish</button>
+<button class="tab-btn" onclick="App.setUploadTab('default')">Standart</button>
+</div>
+<div id="uploadFile">
+<div class="file-input-wrap">
+<div class="file-input-label">📄 Word/PDF fayl tanlang</div>
+<input type="file" accept=".pdf,.docx,.txt" onchange="App.handleFileUpload(event)">
+</div>
+<div id="fileStatus" style="margin-top:8px;font-size:.8rem;color:var(--text2)"></div>
+</div>
+<div id="uploadManual" style="display:none">
+<textarea class="input" id="manualInput" placeholder="1. Savol matni&#10;A) variant&#10;B) variant&#10;C) variant&#10;D) variant&#10;To'g'ri javob: A&#10;&#10;2. Savol matni..." rows="8"></textarea>
+<button class="btn btn-secondary btn-sm" style="margin-top:8px" onclick="App.parseManual()">Tahlil qilish</button>
+</div>
+<div id="uploadDefault" style="display:none">
+<p style="color:var(--text2);font-size:.85rem;margin-bottom:8px">100 ta "Axborot Tizimi" standart savollari yuklanadi</p>
+<button class="btn btn-primary btn-sm" onclick="App.loadDefaults()">Standart savollarni yuklash</button>
+</div>
+</div>
+<div id="questionCount" style="margin-top:12px;display:none">
+<span class="badge badge-success">✓ <span id="qCountNum">0</span> ta savol yuklandi</span>
+</div>
+<div style="display:flex;justify-content:flex-end;margin-top:16px">
+<button class="btn btn-primary" onclick="App.teacherNext(2)" id="btnStep1Next" disabled>Keyingi →</button>
+</div>
+</div>
+<div class="card card-wide" id="teacherStep2" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+<h2 style="font-size:1.1rem">2-qadam: Savollarni tahrirlash</h2>
+<button class="btn btn-secondary btn-sm" onclick="App.addQuestion()">+ Savol qo'shish</button>
+</div>
+<div id="questionsEditor" style="max-height:50vh;overflow-y:auto;padding-right:4px"></div>
+<div style="display:flex;justify-content:space-between;margin-top:16px">
+<button class="btn btn-secondary" onclick="App.teacherNext(1)">← Orqaga</button>
+<button class="btn btn-primary" onclick="App.teacherNext(3)">Keyingi →</button>
+</div>
+</div>
+<div class="card card-wide" id="teacherStep3" style="display:none">
+<h2 style="margin-bottom:16px;font-size:1.1rem">3-qadam: Guruh sozlamalari</h2>
+<div class="form-group">
+<label>Guruh nomi</label>
+<input class="input" id="groupName" placeholder="Masalan: TATU-2024">
+</div>
+<div style="display:flex;gap:12px">
+<div class="form-group" style="flex:1">
+<label>Login</label>
+<input class="input" id="groupLogin" placeholder="Avtomatik">
+</div>
+<div class="form-group" style="flex:1">
+<label>Parol</label>
+<input class="input" id="groupPassword" placeholder="Avtomatik">
+</div>
+</div>
+<button class="btn btn-secondary btn-sm" onclick="App.generateCredentials()" style="margin-bottom:16px">🔄 Avtomatik generatsiya</button>
+<div class="form-group">
+<label>Boshlash rejimi</label>
+<select class="input" id="startMode">
+<option value="group">Guruh rejimi (o'qituvchi boshlaydi)</option>
+<option value="individual">Individual rejim (har qachon boshlash mumkin)</option>
+</select>
+</div>
+<div style="display:flex;justify-content:space-between;margin-top:16px">
+<button class="btn btn-secondary" onclick="App.teacherNext(2)">← Orqaga</button>
+<button class="btn btn-success" onclick="App.createTest()" style="font-size:1.05rem">✅ Testni yaratish</button>
+</div>
+</div>
+</div>
+
+<!-- Screen 3: Student Login -->
+<div class="screen" id="screenStudentLogin">
+<div class="header-bar">
+<button class="back-btn" onclick="App.goLanding()">←</button>
+<h1>Test topshirish</h1>
+<div style="width:44px"></div>
+</div>
+<div class="card" style="max-width:480px">
+<div style="text-align:center;margin-bottom:16px">
+<div style="font-size:3rem;margin-bottom:8px">🎓</div>
+<h2 style="font-size:1.1rem">Test topshirish</h2>
+</div>
+
+<div class="form-group">
+<label>Ismingiz</label>
+<input class="input" id="studentName" placeholder="To'liq ismingizni kiriting">
+</div>
+
+<div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.3);border-radius:12px;padding:16px;margin-bottom:16px">
+<div style="text-align:center;margin-bottom:10px">
+<div style="font-size:1.5rem;margin-bottom:4px">🔗</div>
+<h3 style="font-size:1rem">Xona kodi bilan ulanish</h3>
+<p style="color:var(--text2);font-size:.75rem;margin-top:4px">O'qituvchi bergan 6 xonali kod, login va parolni kiriting</p>
+</div>
+<div class="form-group">
+<input class="input" id="roomCodeInput" placeholder="Xona kodi (masalan: ABC123)" maxlength="6" style="text-align:center;font-size:1.1rem;letter-spacing:3px;text-transform:uppercase">
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div class="form-group" style="margin-bottom:8px">
+<input class="input" id="studentLoginInput" placeholder="Login">
+</div>
+<div class="form-group" style="margin-bottom:8px">
+<input class="input" id="studentPasswordInput" type="password" placeholder="Parol">
+</div>
+</div>
+<button class="btn btn-primary btn-block" onclick="App.connectToRoom()" id="btnConnectRoom">Ulanish 🔄</button>
+<div id="connStatus" style="margin-top:8px;text-align:center;font-size:.8rem;color:var(--text2)"></div>
+</div>
+
+<div style="text-align:center;margin-bottom:12px;color:var(--text2);font-size:.85rem">— yoki test kodi bilan —</div>
+
+<div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px">
+<div class="form-group" style="margin-bottom:8px">
+<textarea class="input" id="testCodeInput" placeholder="Test kodini bu yerga qo'ying..." rows="2" style="font-size:.75rem"></textarea>
+</div>
+<button class="btn btn-secondary btn-block btn-sm" onclick="App.importTestCode()">📥 Test kodini yuklash</button>
+</div>
+</div>
+</div>
+
+<!-- Screen 4: Student Wait -->
+<div class="screen" id="screenStudentWait">
+<div class="header-bar">
+<button class="back-btn" onclick="App.leaveRoom()">←</button>
+<h1>Kutish xonasi</h1>
+<div id="waitConnStatus" class="conn-status"><span class="dot dot-green"></span> Ulangan</div>
+</div>
+<div class="card" style="text-align:center">
+<div class="waiting-anim">
+<div style="font-size:3rem">⏳</div>
+<h2 style="font-size:1.1rem;margin-bottom:4px">O'qituvchi kutilmoqda</h2>
+<p style="color:var(--text2);font-size:.85rem">Test boshlanishini kuting...</p>
+<div class="waiting-dots"><span></span><span></span><span></span></div>
+</div>
+<div class="divider"></div>
+<div style="margin-top:12px">
+<div style="color:var(--text2);font-size:.8rem;margin-bottom:6px">Xona kodi:</div>
+<div class="code-display" id="waitRoomCode" style="font-size:1.2rem;padding:8px">---</div>
+</div>
+<div style="margin-top:12px">
+<div style="color:var(--text2);font-size:.8rem;margin-bottom:6px">Ulangan a'zolar:</div>
+<div id="waitMembers" style="text-align:left"></div>
+</div>
+</div>
+</div>
+
+<!-- Screen 5: Teacher Control -->
+<div class="screen" id="screenTeacherControl">
+<div class="header-bar">
+<button class="back-btn" onclick="App.goLanding()">←</button>
+<h1>Guruhni boshqarish</h1>
+<div id="hostConnStatus" class="conn-status"><span class="dot dot-green"></span> Aktiv</div>
+</div>
+<div class="card card-wide">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<div>
+<h2 style="font-size:1rem" id="controlTestName">Test</h2>
+<div style="color:var(--text2);font-size:.8rem">Xona kodi: <strong id="controlRoomCode" style="color:var(--primary-light)">---</strong></div>
+</div>
+<span class="badge badge-primary" id="controlMemberCount">0 ta talaba</span>
+</div>
+<div class="divider"></div>
+<h3 style="font-size:.9rem;margin-bottom:8px">Ulangan talabalar:</h3>
+<div id="controlMembers" style="max-height:30vh;overflow-y:auto;margin-bottom:12px">
+<div style="color:var(--text2);font-size:.85rem;text-align:center;padding:20px">Hali talaba ulanmadi...</div>
+</div>
+<div class="divider"></div>
+<h3 style="font-size:.9rem;margin-bottom:8px">Natijalar:</h3>
+<div id="controlResults" style="max-height:25vh;overflow-y:auto;margin-bottom:12px">
+<div style="color:var(--text2);font-size:.85rem;text-align:center;padding:20px">Hali natija yo'q</div>
+</div>
+<div style="display:flex;gap:10px">
+<button class="btn btn-success btn-block" onclick="App.startGroupTest()" id="btnStartGroup">🚀 Testni boshlash</button>
+</div>
+</div>
+</div>
+
+<!-- Screen 6: Test Screen -->
+<div class="screen" id="screenTest">
+<div class="header-bar" style="max-width:600px">
+<div>
+<div style="font-size:.8rem;color:var(--text2)" id="testTitle">Test</div>
+<div style="font-weight:600;font-size:.95rem">Savol <span id="qCurrent">1</span>/<span id="qTotal">0</span></div>
+</div>
+<div style="display:flex;align-items:center;gap:8px">
+<span id="timerDisplay" style="font-weight:700;font-size:1.1rem;color:var(--primary-light)">0</span>
+<span style="font-size:.8rem;color:var(--text2)">soniya</span>
+</div>
+</div>
+<div class="timer-bar" style="max-width:600px;width:100%">
+<div class="timer-fill safe" id="timerFill" style="width:100%"></div>
+</div>
+<div class="card" style="max-width:600px;margin-top:8px">
+<h2 style="font-size:1.05rem;line-height:1.6;margin-bottom:16px" id="questionText">Savol matni</h2>
+<div id="optionsContainer"></div>
+<div id="feedbackMsg"></div>
+</div>
+<div class="q-nav" id="questionNav" style="max-width:600px"></div>
+<div style="max-width:600px;width:100%;margin-top:8px">
+<button class="btn btn-danger btn-block" id="btnFinish" onclick="App.finishTest()" style="display:none">🏁 Yakunlash</button>
+</div>
+</div>
+
+<!-- Screen 7: Result -->
+<div class="screen" id="screenResult">
+<div class="header-bar" style="max-width:500px">
+<div style="width:44px"></div>
+<h1>Natijalar</h1>
+<div style="width:44px"></div>
+</div>
+<div class="card result-card" style="max-width:500px">
+<div style="font-size:3rem;margin-bottom:8px" id="resultEmoji">🏆</div>
+<div class="result-score" id="resultScore">0%</div>
+<div class="result-label" id="resultLabel">To'g'ri javoblar</div>
+<div class="result-stat">
+<div class="stat-item green">
+<div class="stat-value" id="resultCorrect">0</div>
+<div class="result-label">To'g'ri</div>
+</div>
+<div class="stat-item red">
+<div class="stat-value" id="resultWrong">0</div>
+<div class="result-label">Noto'g'ri</div>
+</div>
+<div class="stat-item yellow">
+<div class="stat-value" id="resultTime">0s</div>
+<div class="result-label">Vaqt</div>
+</div>
+</div>
+<div class="divider"></div>
+<div style="font-size:.85rem;color:var(--text2);margin-bottom:12px" id="resultDetail"></div>
+</div>
+<button class="btn btn-primary" onclick="App.goLanding()" style="margin-top:12px">🏠 Bosh sahifaga</button>
+</div>
+
+<script>
+// Dynamic PeerJS loading - won't block the app if CDN is down
+(function(){
+  var s = document.createElement('script');
+  s.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
+  s.onload = function(){ console.log('PeerJS yuklandi'); };
+  s.onerror = function(){ console.warn('PeerJS yuklanmadi - faqat test kodi usuli ishlaydi'); };
+  document.head.appendChild(s);
+})();
+</script>
+<script>
+var App = (function(){
+'use strict';
+
+// ========== DEFAULT QUESTIONS ==========
+var defaultQuestions = [
+  {text:"... — bu axborot jarayonlarini oldindan belgilangan qoidalar asosida tizimga topshirishdir.",options:["Algoritmlash","Testlash","Modellashtirish","Avtomatlashtirish"],correctIndex:0},
+  {text:"... — bu axborot tizimidagi jarayonlarni: kamroq vaqt, kamroq resurs, kamroq xarajat va kamroq xatolik bilan bajariladigan holatga keltirishdir.",options:["Avtomatlashtirish","Modellashtirish","Dasturlash","Optimallashtirish"],correctIndex:3},
+  {text:"... – bu real hodisa va jarayonlar haqidagi, qabul qilinishi, qayta ishlanishi, saqlanishi va uzatilishi mumkin bo'lgan mazmunli ma'lumotdir.",options:["Axborot tizimi","Ma'lumot","Kompyuter","Axborot"],correctIndex:3},
+  {text:"..... — bu bulutli texnologiyalarning dastur ishlab chiqish uchun tayyor platforma taqdim etish modeli hisoblanadi.",options:["IaaS (Infrastructure as a Service)","SaaS (Software as a Service)","PaaS (Platform as a Service)","DbaaS (Database as a Service)"],correctIndex:2},
+  {text:"..... — bu bulutli texnologiyalarning server, xotira, tarmoq va saqlash infratuzilmasini internet orqali ijaraga berish modelidir.",options:["SaaS (Software as a Service)","PaaS (Platform as a Service)","IaaS (Infrastructure as a Service)","DbaaS (Database as a Service)"],correctIndex:2},
+  {text:"..... — bu bulutli texnologiyalarning tayyor dasturiy ta'minotdan internet orqali foydalanish modelidir.",options:["IaaS (Infrastructure as a Service)","PaaS (Platform as a Service)","SaaS (Software as a Service)","DbaaS (Database as a Service)"],correctIndex:2},
+  {text:"..... — bu hisoblash resurslari (server, xotira, ma'lumotlar bazasi, dasturiy ta'minot va boshqalar) internet orqali xizmat sifatida taqdim etiladigan modeldir.",options:["Veb dasturlash (Web Programming)","Klassik texnologiya(On-Premise)","To'rli hisoblashlar (Grid Computing)","Bulutli texnologiyalar (Cloud Computing)"],correctIndex:3},
+  {text:"......— bu axborot tizimining ishlash holatini uzluksiz kuzatish, tahlil qilish va baholash jarayonidir.",options:["Testlash","Normallashtirish","Monitoring","Dasturlash"],correctIndex:2},
+  {text:"\"Relyatsion\" atamasi qaysi so'zdan olingan?",options:["Relation (munosabat)","Record (Yozuv)","Object (Obyekt)","Structure (Struktura)"],correctIndex:0},
+  {text:"\"Talaba\" axborot tizimida \"Talabani qo'shish/tahrirlash/o'chirish (CRUD)\"- qanday talab hisoblanadi?",options:["Nofunksional","Murakkab (composite)","Funksional","Yashirin talab"],correctIndex:2},
+  {text:"Abstraksiya darajasiga ko'ra ma'lumotlar modeli nechta turga bo'linadi?",options:["3 ta","2 ta","4 ta","5 ta"],correctIndex:0},
+  {text:"Agar Talaba Entity boʻlsa, TalabaID, FIO kabi elementlar nima deb ataladi?",options:["Atributlar","Obyektlar","Bog'lanishlar","Metodlar"],correctIndex:0},
+  {text:"Asosiy afzalligi \"oddiy va tushunarliligi\" hisoblangan ma'lumotlar modeli qaysi?",options:["Ierarxik model","Relyatsion model","Tarmoq modeli","Landshaft modeli"],correctIndex:1},
+  {text:"Avtomatlashtirish asosan nimani kamaytiradi?",options:["Axborot hajmini","Tizim tezligini","Natija aniqligini","Inson ishtirokini"],correctIndex:3},
+  {text:"Axborot hajmining keskin oshishi, inson omilini kamaytirish va tezkor qaror qabul qilish kerakligi - qanday zaruratni yuzaga keltiradi?",options:["Modellashtirish","Talablarni aniqlash","Jarayonni kuzatish","Avtomatlashtirish"],correctIndex:3},
+  {text:"Axborot kechikib kelganda boshqaruv qanday bo'ladi?",options:["Samarasiz","Tezkor","Optimal","Barqaror"],correctIndex:0},
+  {text:"Axborot tizimda turli manbalardan olingan ma'lumotlarni yig'ish, tartiblash, qayta ishlash, solishtirish, baholash va ulardan foydali xulosa chiqarish jarayoni nima deyiladi?",options:["Tizimni testlash","Ma'lumotlarni tahlil qilish","Tizimni loyihalash","Ma'lumotlarni modellashtirish"],correctIndex:1},
+  {text:"Axborot tizimi qaysi zanjir asosida ishlaydi?",options:["Kirish → Qayta ishlash → Chiqish","Chiqish → Saqlash → Kirish","Grafik → Matn → Ovoz","Sensor → Printer → Monitor"],correctIndex:0},
+  {text:"Axborot tizimi sifatini rejalash, nazorat qilish va doimiy yaxshilashga qaratilgan boshqaruv faoliyati nima deyiladi?",options:["Ekspluatatsiya","Testlash","Sifatni boshqarish","Integratsiya"],correctIndex:2},
+  {text:"Axborot tizimida \"Bir vaqtning o'zida 10–20 operator ishlasin\" – qanaqa talab turiga kiradi?",options:["Funksional","Nofunksional","Murakkab (composite)","Yashirin talab"],correctIndex:1},
+  {text:"Axborot tizimida ma'lumotlar qayerda saqlanadi?",options:["Dastur kodida","Ma'lumotlar bazasida","Seyfda","Ma'lumotlar modelida"],correctIndex:1},
+  {text:"Axborot tizimida serverga tushayotgan yuklamani kamaytirish qaysi jarayonga xos?",options:["Modellashtirish","Dasturlash","Testlash","Optimallashtirish"],correctIndex:3},
+  {text:"Axborot tizimida: \"Sahifa 3 soniyadan ko'p bo'lmagan vaqtda ochilishi kerak\" – qaysi talab turiga mos keladi?",options:["Funksional","Nofunksional","Murakkab (composite)","Yashirin talab"],correctIndex:1},
+  {text:"Axborot tizimini loyihalashning: ekranlar soni aniqlanadi, formalar va maydonlar joylashuvi belgilanadi. Bu loyihalashning qaysi turi?",options:["Ma'lumotlar bazasini loyihalash","Interfeysni loyihalash (UI/UX Design)","Arxitektura loyihalash","Xavfsizlik loyihalash"],correctIndex:1},
+  {text:"Axborot tizimini loyihalashning: asosiy obyektlar aniqlanadi, atributlar belgilanadi, bog'lanishlar chiziladi. Bu qaysi tur?",options:["Interfeysni loyihalash","Ma'lumotlar bazasini loyihalash","Arxitektura loyihalash","Xavfsizlik loyihalash"],correctIndex:1},
+  {text:"Axborot tizimining ishlashini doimiy ravishda kuzatish, tizim holati haqida ma'lumot yig'ish jarayoni nima deyiladi?",options:["Testlash","Monitoring","Ekspluatatsiya","Avtomatizatsiya"],correctIndex:1},
+  {text:"Axborot tizmida turli manbalardan ma'lumotlarni bitta ekranda vizual tarzda jamlab ko'rsatuvchi panel nima?",options:["Tashqi interfeys","Dashboard","Database","Interaktiv datchik"],correctIndex:1},
+  {text:"Axborotni taqdim etish nimani bildiradi?",options:["Ma'lumotni yig'ish","Ma'lumotni saqlash","Ma'lumotni qayta ishlash","Natijani chiqarish"],correctIndex:3},
+  {text:"Axborotning aniqligi nimani bildiradi?",options:["Axborot qanchalik tez uzatilishini","Axborot hajmining katta bo'lishini","Axborot dizaynining chiroyliligini","Real holatni qanchalik to'g'ri aks ettirishini"],correctIndex:3},
+  {text:"Axborotning ishonchliligi nimaga bog'liq?",options:["Axborot hajmi va uzatish muhitiga","Axborot dizayni va loyihalash usuliga","Axborot rangiga","Manba va mazmunning haqqoniyligiga"],correctIndex:3},
+  {text:"Axborotning mavjudligi deganda nima tushuniladi?",options:["Axborot hajmining katta bo'lishini","Axborot grafik shaklda bo'lishini","Axborot faqat yozma bo'lishini","Zarur vaqtda foydalanishga yaroqli bo'lishini"],correctIndex:3},
+  {text:"Ayni vaqtda dunyodagi eng yirik bulutli platforma qaysi?",options:["Microsoft Azure","Google Cloud Platform","Amazon Web Services (AWS)","Alibaba Cloud"],correctIndex:2},
+  {text:"Bir vaqtning o'zida 1000 foydalanuvchi kirganda tizim sekinlashadimi yoki yo'qmi tekshirilsa, bu qaysi test turiga kiradi?",options:["Tizim testi","Kod tekshiruvi","Yuklama testi","Statik tahlil"],correctIndex:2},
+  {text:"Bir yoki bir nechta takrorlanuvchi ma'lumotlar guruhiga ega bo'lgan jadval qanday shakl deyiladi?",options:["1NF","Normallashtirish","Optimallashtirish","Normal bo'lmagan shakl (NBSh)"],correctIndex:3},
+  {text:"Boshqaruv jarayonida noto'g'ri axborot nimaga olib keladi?",options:["Noto'g'ri qarorga","Tezkor boshqaruvga","To'liq tahlilga","Avtomatlashtirishga"],correctIndex:0},
+  {text:"Bulutli modelda server resurslaridan odatda qanday foydalaniladi?",options:["Sotib olinadi","Yaratiladi","Ijaraga olinadi","Sotuvchi bilan bo'lishiladi"],correctIndex:2},
+  {text:"Bulutli texnologiyalarda hisoblash resurslari foydalanuvchiga qanday shaklda taqdim etiladi?",options:["Fayl sifatida","Modul sifatida","Xizmat sifatida","Paket sifatida"],correctIndex:2},
+  {text:"Bulutli texnologiyaning asosiy uchta modelidan SaaS modeli ko'proq kimga mos keladi?",options:["Dasturchi","DevOps","Oddiy foydalanuvchi","Administrator"],correctIndex:2},
+  {text:"Dasturiy mahsulotning g'oya paydo bo'lishidan ekspluatatsiyadan chiqarilishigacha bo'lgan barcha bosqichlarini qamrab oluvchi model nima?",options:["BPMN","SDLC","S.D&S.DS","Deployment"],correctIndex:1},
+  {text:"Dasturiy ta'minotni tekshirish jarayoni nima deyiladi?",options:["Loyihalash","Shifrlash","Testlash","Optimallashtirish"],correctIndex:2},
+  {text:"Davlat va strategik ahamiyatga ega axborotlar axborotning qanday turiga kiradi?",options:["Maxfiy axborot","Ochiq axborot","Sonli axborot","Audio axborot"],correctIndex:0},
+  {text:"Diagramma va sxemalar qanday axborot turiga kiradi?",options:["Matnli axborot","Audio axborot","Sonli axborot","Grafik axborot"],correctIndex:3},
+  {text:"Django loyihasini joylashtirishda Ubuntu, Python, Django va PostgreSQLni o'zingiz o'rnatsangiz, bu qaysi model bo'ladi?",options:["PaaS","SaaS","IaaS","Public Cloud"],correctIndex:2},
+  {text:"Elektron raqamli imzo (ERI) bilan tasdiqlangan ma'lumot axborotning qaysi xususiyatni ta'minlaydi?",options:["Tushunarlilik","Grafik ko'rinish","Axborot sifatini","Ishonchlilik"],correctIndex:3},
+  {text:"ER-diagramma odatda qaysi ma'lumotlar modelini loyihalashda qo'llaniladi?",options:["Relyatsion","Ierarxik","Tarmoqli","Obyektli"],correctIndex:0},
+  {text:"ERP tizimida real vaqt rejimida yangilanadigan ombor qoldig'i axborotning qaysi xususiyatiga misol bo'ladi?",options:["Tushunarlilik","To'liqlik","Maxfiylik","Dolzarblik"],correctIndex:3},
+  {text:"Foydalanuvchi moduli, ma'lumotlar bazasi va hisobot moduli birgalikda tekshirilsa, bu qaysi test turi?",options:["Funksional testlash","Yuklama testi","Integratsion testlash","Kodni nazorat qilish"],correctIndex:2},
+  {text:"Foydalanuvchi tizimga kirishi, ma'lumot kiritishi va hisobot olishi tekshirilsa, bu qaysi test turiga kiradi?",options:["Integratsion testlash","Tizim testlash","Funksional testlash","Yuklama testi"],correctIndex:2},
+  {text:"Google BigQuery bilan ishlashda so'rovlar qanday uslubda beriladi?",options:["Python pyscript uslubida","SQL uslubida","XML uslubida","JSon uslubida"],correctIndex:1},
+  {text:"Google Docs bulutli texnologiyaning qaysi modeliga kiradi?",options:["IaaS","PaaS","SaaS","GdaS"],correctIndex:2},
+  {text:"Hamma uchun ochiq bo'lgan ma'lumotlar qanday ataladi?",options:["Konfidensial axborot","Maxfiy axborot","Cheklangan axborot","Ochiq axborot"],correctIndex:3},
+  {text:"Ierarxik ma'lumotlar modeli qanday tuzilishga ega?",options:["Daraxt (ota–bola) ko'rinishida","Jadval (satr-ustun) ko'rinishida","Graf ko'rinishida","Obyektlar to'plami ko'rinishida"],correctIndex:0},
+  {text:"Ierarxik modelda har bir \"bola\" obyekt nechta \"ota\" obyektga eqa bo'ladi?",options:["Faqat bitta","Ikkita","Istalgancha","Umuman ega bo'lmaydi"],correctIndex:0},
+  {text:"Jadval, qator, ustun, PK, FK lar qaysi modelning asosiy elementlari hisoblanadi?",options:["Relyatsion","Ierarxik","Tarmoqli","Obyektli"],correctIndex:0},
+  {text:"Kelajakdagi holat qaysi tahlil turi orqali aniqlanadi?",options:["Diagnostik tahlil","Bashoratli tahlil","Tavsiyaviy tahlil","Tavsifiy tahlil"],correctIndex:1},
+  {text:"Kuzatuv kamerasi tasviri qanday axborot hisoblanadi?",options:["Audio axborot","Matnli axborot","Sonli axborot","Video axborot"],correctIndex:3},
+  {text:"Ma'lumotlar bazasida \"Manzil (Viloyat, Tuman, Ko'cha)\" tipidagi atributlar qanday atributlar deyiladi?",options:["Oddiy (simple)","Ko'p qiymatli (multivalued)","Murakkab (composite)","Hosilaviy (derived)"],correctIndex:2},
+  {text:"Ma'lumotlar bazasida har bir yozuvni yagona identifikatsiya qiluvchi maydon nima deb ataladi?",options:["Foreign Key (FK)","Primary Key (PK)","Atribut key (AK)","DatabaseKey (DK)"],correctIndex:1},
+  {text:"Ma'lumotlar bazasini mantiqan tartiblash va takrorlanishni kamaytirish jarayoni nima deyiladi?",options:["inventarizatsiya","lokalizatsiya","urbanizatsiya","normalizatsiya"],correctIndex:3},
+  {text:"Ma'lumotlar modeli bo'lmasa qanday holat yuzaga keladi?",options:["Ma'lumotlar tartibsiz bo'ladi va takrorlanish ko'payadi","Tizim tez ishlaydi","Axborot xavfsizligi oshadi","Dastur avtomatik yaratiladi"],correctIndex:0},
+  {text:"Ma'lumotlar modelida boshqa jadvalga ishora qiluvchi maydon nima deb ataladi?",options:["Primary Key (PK)","Foreign Key (FK)","Candidate key","Composite key"],correctIndex:1},
+  {text:"Ma'lumotlar modelida Izchillik (integrity) deganda nima tushuniladi?",options:["Ma'lumotlarning mantiqan to'g'ri va qarama-qarshi bo'lmasligi","Ma'lumotlarning ko'p nusxada saqlanishi","Ma'lumotlar rangli bo'lishi","Ma'lumotlar tez uzatilishi"],correctIndex:0},
+  {text:"Ma'lumotlar modellarining klassik turlariga qaysilar kiradi?",options:["Ierarxik, tarmoqli, relyatsion","Grafik, audio, video","Statik va dinamik","Fizik, virtual va konseptual"],correctIndex:0},
+  {text:"Ma'lumotlar tahlilining yakuniy bosqichi nima?",options:["Yig'ish","Xulosa chiqarish","Tozalash","Testlash"],correctIndex:1},
+  {text:"Ma'lumotlarni modellashtirishda asosiy elementlar qaysilar?",options:["Dastur, tizim va foydalanuvchi","Obyekt, atribut, bog'lanish","Server, mijoz va tarmoq","Barcha apparat vositalar"],correctIndex:1},
+  {text:"Ma'lumotlarni obyektlar, atributlar va bog'lanishlar ko'rinishida ifodalash jarayoni nima deyiladi?",options:["Ma'lumotlarni modellashtirish","Ma'lumotlar bilan ishlovchi dasturni yozish","Talablarni yig'ish","Funksiyalarni aniqlash"],correctIndex:0},
+  {text:"Ma'lumotlarni tashkil etish usuliga Grafik tuzilma qanday model deyiladi?",options:["Relyatsion model","Tarmoq modeli","Ierarxik model","Obyektga yo'naltirilgan model"],correctIndex:1},
+  {text:"Ma'lumotlarni yig'ish, statistik tahlil qilish va modellash optimallashtirishning qaysi bosqichiga kiradi?",options:["Maqsadni belgilash","O'zgarish kiritish","Natijani o'lchash","Tahlil va prognoz"],correctIndex:3},
+  {text:"Ma'lumotlarning tuzilishi, bog'lanishlari va ularga qo'yilgan qoidalarni ifodalovchi formal tasvir nima deyiladi?",options:["Ma'lumotlar modeli","Axborot tizimi","Axborot","Grafik interfeys dasturi"],correctIndex:0},
+  {text:"Mantiqiy model qaysi bosqichdan keyin tuziladi?",options:["Kontseptual modeldan keyin","Fizik modeldan keyin","Dasturlashdan keyin","Ekspluatatsiyadan keyin"],correctIndex:0},
+  {text:"Microsoft Azure (Virtual Machines) - bulutli texnologiyaning qaysi modeliga kiradi?",options:["SaaS","PaaS","IaaS","DBaaS"],correctIndex:2},
+  {text:"Monitoring jarayonining birinchi bosqichi qaysi?",options:["Ma'lumotlarni qayta ishlash","Ogohlantirish","Ma'lumotlarni yig'ish","Muammolarni bartaraf etish"],correctIndex:2},
+  {text:"Monitoring jarayonining ikkinchi bosqichi qaysi?",options:["Ma'lumotlarni yig'ish","Ogohlantirish","Ma'lumotlarni qayta ishlash va tahlil qilish","Muammolarni bartaraf etish"],correctIndex:2},
+  {text:"Muammo haqida xabar berish asosan qaysi jarayonga xos?",options:["Dasturlash","Monitoring","Loyihalash","Tahlil"],correctIndex:1},
+  {text:"Normalizatsiya nimaga xizmat qiladi?",options:["Jadvallar hajmini kattalashtirishga","Foydalanuvchilar sonini ortishiga","Talablar sonini qisqarishiga","Takrorlanishni kamaytirishga"],correctIndex:3},
+  {text:"Normallashtirishda har bir maydon faqat bitta qiymatni o'z ichiga oladi. Bu qaysi normal shakl?",options:["2NF","3NF","4NF","1NF"],correctIndex:3},
+  {text:"Nutq va musiqa qanday axborot turiga mansub?",options:["Grafik axborot","Matnli axborot","Sonli axborot","Audio axborot"],correctIndex:3},
+  {text:"Obyektga yo'naltirilgan model nimaga asoslanadi?",options:["OOP tamoyillariga","Faqat SQLga","Grafik dizaynga","Fayl tizimiga"],correctIndex:0},
+  {text:"Obyektga yo'naltirilgan modelda obyekt nimaga ega bo'ladi?",options:["Atributlar va metodlarga","Faqat ustunlarga","Satrlar va unreal elementlarga","Kalitlar va qulflarga"],correctIndex:0},
+  {text:"Optimallashtirish qachon zarur bo'ladi?",options:["Jarayon tez bo'lsa","Tizim kichik bo'lsa","Tizim yangi bo'lsa","Tizim sekin ishlayotgan bo'lsa"],correctIndex:3},
+  {text:"Optimallashtirishning qaysi bosqichida iterativ yondashuv orqali jarayni yanada samarali qilish amalga oshiriladi?",options:["Maqsadni belgilash","Tahlil va prognoz","Muammoni aniqlash","Takomillashtirish"],correctIndex:3},
+  {text:"PaaS modeli ko'proq kimlarga mos keladi?",options:["Oddiy foydalanuvchilarga","DevOpsga","Dasturchilarga","Administratorga"],correctIndex:2},
+  {text:"Qaysi bulutli texnologiya modelida foydalanuvchi \"Operatsion tizim\"ni o'zi o'rnatadi?",options:["SaaS","PaaS","IaaS","DbaaS"],correctIndex:2},
+  {text:"Qo'lda bajariladigan axborot jarayonlarini dasturiy vositalar orqali bajariladigan holatga o'tkazish jarayoni nima?",options:["Optimallashtirish","Avtomatlashtirish","Joriy etish","Monitoring"],correctIndex:1},
+  {text:"Qo'lda bajariladigan jarayonlarning asosiy kamchiligi nima?",options:["Vaqt kam sarflanishi","Xatolik ehtimoli yuqori","Aniqlilik uchun ko'p texnika talab etilishi","Hisobotlarni avtomatlashganligi"],correctIndex:1},
+  {text:"Relyatsion ma'lumotlar modeli kim tomonidan taklif etilgan?",options:["E. Codd","B. Gates","L. Torvalds","S. Jobs"],correctIndex:0},
+  {text:"Relyatsion modelda ma'lumotlar qanday saqlanadi?",options:["Jadval (satr–ustun) ko'rinishida","Daraxt (ota-bola) ko'rinishida","Graf ko'rinishida","Obyektlar ko'rinishida"],correctIndex:0},
+  {text:"Resurslarni internet orqali xizmat sifatida olish qanday texnologiya deb ataladi?",options:["Web texnologiya","Bulutli texnologiya","Internet texnologiya","Intranet texnologiya"],correctIndex:1},
+  {text:"SaaS modelida foydalanuvchi qanday dasturiy tizimdan foydalanadi?",options:["O'zi o'rnatgan tizimdan","Virtual mashinada joylashgan tizimdan","Tayyor tizimdan","O'z kompyuteridagi dasturiy muhitdan"],correctIndex:2},
+  {text:"SDLC qisqartmasi nimani anglatadi?",options:["Software Development Life Cycle","System Design Logical Code","Software Data Link Control","Structured Development Logic Code"],correctIndex:0},
+  {text:"Shaxsiy va tijorat sirlariga oid ma'lumotlar qaysi axborot turiga kiradi?",options:["Ochiq axborot","Sonli axborot","Audio axborot","Konfidensial axborot"],correctIndex:3},
+  {text:"Sinovdan o'tgan dasturiy ta'minotni real ish muhitiga o'rnatish jarayoni nima?",options:["Acceptance test","Deployment - Joriy etish","Maintenance","Implementation"],correctIndex:1},
+  {text:"Talaba ↔ Guruh munosabati nimani ifodalaydi?",options:["Obyektlar orasidagi bog'lanishni","Ma'lumot turini va xususiyatlarini","Fizik saqlash joyini","Grafik interfeysni"],correctIndex:0},
+  {text:"Talabalar reytingidan o'rtacha ballni hisoblash axborot tizimi zanjirining qaysi bosqichiga misol?",options:["Qayta ishlash","Kirish","Saqlash","Uzatish"],correctIndex:0},
+  {text:"Tarmoqli model nimani ifodalaydi?",options:["Birga-ko'p bog'lanishlarni","Ko'pga-ko'p bog'lanishlarni","Birga-Bir bog'lanishlarni","Daraxt ko'rinishidagi tuzilmani"],correctIndex:1},
+  {text:"Tarmoqli modelning asosiy kamchiligi nimada?",options:["Tuzilishi murakkab va foydalanish qiyin","Ma'lumotlar saqlanmaydi","Grafik ishlatilmaydi","Jadval tushunchasi yo'q"],correctIndex:0},
+  {text:"Testlashning asosiy maqsadi nima?",options:["Grafikni shakllantirish","Xatolarni aniqlash","Fayllarni hajmini aniqlash","Xatolarni dasturlash"],correctIndex:1},
+  {text:"Tizim funksiyalarining talabga mos ishlashini aniqlash qaysi testlash orqali?",options:["Nofunksional testlash","Funksional testlash","Integratsion testlash","Yuklama testi"],correctIndex:1},
+  {text:"Wireshark dasturiy vositasi nimani monitoring qiladi?",options:["Serverni","Ma'lumotlar bazasini","Tarmoq trafigini","Axborot tizimini"],correctIndex:2},
+  {text:"Zabbix dasturiy vositasi asosan nimani monitoring qiladi?",options:["Saytni va provayderni","Ma'lumotlar bazasini","Server va tarmoq qurilmalarini","Axborot tizimini"],correctIndex:2}
+];
+
+// ========== STATE ==========
+var state = {
+  currentScreen: 'screenLanding',
+  teacherStep: 1,
+  questions: [],
+  testConfig: null,
+  roomCode: '',
+  peer: null,
+  connections: [], // host: array of {conn, name, id}
+  studentConn: null, // client: connection to host
+  isHost: false,
+  members: [],
+  results: [],
+  // quiz state
+  quiz: null,
+  timerInterval: null,
+  testStartTime: null,
+  // file libs loaded
+  pdfJsLoaded: false,
+  mammothLoaded: false
+};
+
+// ========== HELPERS ==========
+function $(id){ return document.getElementById(id); }
+function show(id){ $(id).classList.add('active'); }
+function hide(id){ $(id).classList.remove('active'); }
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(function(s){ s.classList.remove('active'); });
+  show(id);
+  state.currentScreen = id;
+}
+
+function toast(msg, type){
+  type = type || 'info';
+  var el = document.createElement('div');
+  el.className = 'toast toast-' + type;
+  el.textContent = msg;
+  $('toastContainer').appendChild(el);
+  setTimeout(function(){ if(el.parentNode) el.parentNode.removeChild(el); }, 3500);
+}
+
+function showModal(html){
+  $('modalContent').innerHTML = html;
+  $('modalOverlay').classList.add('active');
+}
+function closeModal(){
+  $('modalOverlay').classList.remove('active');
+}
+
+function generateCode(len){
+  var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  var code = '';
+  for(var i=0;i<len;i++) code += chars.charAt(Math.floor(Math.random()*chars.length));
+  return code;
+}
+
+function shuffleArray(arr){
+  var a = arr.slice();
+  for(var i=a.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var t=a[i]; a[i]=a[j]; a[j]=t;
+  }
+  return a;
+}
+
+function copyText(text){
+  try{
+    if(navigator.clipboard){ navigator.clipboard.writeText(text).then(function(){ toast('Nusxalandi!','success'); }); }
+    else{
+      var ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); document.body.removeChild(ta); toast('Nusxalandi!','success');
+    }
+  }catch(e){ toast('Nusxalash amalga oshmadi','error'); }
+}
+
+function encodeTest(test){
+  try{ return btoa(unescape(encodeURIComponent(JSON.stringify(test)))); }
+  catch(e){ return btoa(JSON.stringify(test)); }
+}
+function decodeTest(code){
+  try{ return JSON.parse(decodeURIComponent(escape(atob(code)))); }
+  catch(e){ try{ return JSON.parse(atob(code)); }catch(e2){ return null; } }
+}
+
+// ========== NAVIGATION ==========
+function goLanding(){
+  cleanupPeer();
+  showScreen('screenLanding');
+}
+function goTeacher(){
+  state.questions = [];
+  state.teacherStep = 1;
+  $('testName').value = '';
+  $('testTime').value = '30';
+  $('questionCount').style.display = 'none';
+  $('btnStep1Next').disabled = true;
+  $('groupName').value = '';
+  $('groupLogin').value = '';
+  $('groupPassword').value = '';
+  updateStepIndicator(1);
+  showTeacherStep(1);
+  showScreen('screenTeacher');
+}
+function goStudent(){
+  $('roomCodeInput').value = '';
+  $('testCodeInput').value = '';
+  $('studentLoginInput').value = '';
+  $('studentPasswordInput').value = '';
+  $('studentName').value = '';
+  $('connStatus').innerHTML = '';
+  showScreen('screenStudentLogin');
+}
+
+// ========== TEACHER WIZARD ==========
+function updateStepIndicator(step){
+  var dots = document.querySelectorAll('#stepIndicator .step-dot');
+  dots.forEach(function(d,i){
+    d.classList.remove('active','done');
+    if(i+1 < step) d.classList.add('done');
+    else if(i+1 === step) d.classList.add('active');
+  });
+}
+
+function showTeacherStep(step){
+  $('teacherStep1').style.display = step===1?'block':'none';
+  $('teacherStep2').style.display = step===2?'block':'none';
+  $('teacherStep3').style.display = step===3?'block':'none';
+  if(step===2) renderQuestionsEditor();
+}
+
+function teacherNext(step){
+  if(step===2 && state.questions.length===0){
+    toast('Kamida 1 ta savol yuklang','error'); return;
+  }
+  if(step===3){
+    // validate step 2 is ok (questions exist)
+    collectQuestionsFromEditor();
+    if(state.questions.length===0){ toast('Savollar yo\'q','error'); return; }
+    generateCredentials();
+  }
+  state.teacherStep = step;
+  updateStepIndicator(step);
+  showTeacherStep(step);
+}
+
+function setUploadTab(tab){
+  var tabs = document.querySelectorAll('#uploadTabs .tab-btn');
+  tabs.forEach(function(t){ t.classList.remove('active'); });
+  if(tab==='file') tabs[0].classList.add('active');
+  else if(tab==='manual') tabs[1].classList.add('active');
+  else tabs[2].classList.add('active');
+  $('uploadFile').style.display = tab==='file'?'block':'none';
+  $('uploadManual').style.display = tab==='manual'?'block':'none';
+  $('uploadDefault').style.display = tab==='default'?'block':'none';
+}
+
+function setStudentTab(tab){
+  // Tabs removed in new UI - login/password always visible
+  // This function kept for API compatibility
+}
+
+function handleFileUpload(event){
+  var file = event.target.files[0];
+  if(!file) return;
+  $('fileStatus').innerHTML = '<span class="spinner" style="width:16px;height:16px;border-width:2px;display:inline-block;vertical-align:middle"></span> Fayl o\'qilmoqda...';
+  var reader = new FileReader();
+  var ext = file.name.split('.').pop().toLowerCase();
+
+  if(ext === 'txt'){
+    reader.onload = function(e){
+      var text = e.target.result;
+      var qs = parseQuestionsText(text);
+      if(qs.length > 0){
+        state.questions = qs;
+        $('fileStatus').innerHTML = '<span class="badge badge-success">✓ ' + qs.length + ' ta savol topildi</span>';
+        updateQuestionCount();
+      } else {
+        $('fileStatus').innerHTML = '<span class="badge badge-danger">Savol topilmadi</span>';
+      }
+    };
+    reader.readAsText(file);
+  } else if(ext === 'pdf'){
+    loadPdfJs().then(function(){
+      reader.onload = function(e){
+        extractPdfText(e.target.result).then(function(text){
+          var qs = parseQuestionsText(text);
+          if(qs.length > 0){
+            state.questions = qs;
+            $('fileStatus').innerHTML = '<span class="badge badge-success">✓ ' + qs.length + ' ta savol topildi</span>';
+            updateQuestionCount();
+          } else {
+            $('fileStatus').innerHTML = '<span class="badge badge-danger">PDF dan savol topilmadi</span>';
+          }
+        }).catch(function(){
+          $('fileStatus').innerHTML = '<span class="badge badge-danger">PDF o\'qishda xato</span>';
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    }).catch(function(){
+      $('fileStatus').innerHTML = '<span class="badge badge-danger">PDF kutubxonasi yuklanmadi</span>';
+    });
+  } else if(ext === 'docx'){
+    loadMammoth().then(function(){
+      reader.onload = function(e){
+        extractDocxText(e.target.result).then(function(text){
+          var qs = parseQuestionsText(text);
+          if(qs.length > 0){
+            state.questions = qs;
+            $('fileStatus').innerHTML = '<span class="badge badge-success">✓ ' + qs.length + ' ta savol topildi</span>';
+            updateQuestionCount();
+          } else {
+            $('fileStatus').innerHTML = '<span class="badge badge-danger">DOCX dan savol topilmadi</span>';
+          }
+        }).catch(function(){
+          $('fileStatus').innerHTML = '<span class="badge badge-danger">DOCX o\'qishda xato</span>';
+        });
+      };
+      reader.readAsArrayBuffer(file);
+    }).catch(function(){
+      $('fileStatus').innerHTML = '<span class="badge badge-danger">DOCX kutubxonasi yuklanmadi</span>';
+    });
+  } else {
+    $('fileStatus').innerHTML = '<span class="badge badge-danger">Fayl formati qo\'llab-quvvatlanmaydi (.txt, .pdf, .docx)</span>';
+  }
+}
+
+function extractPdfText(buffer){
+  return new Promise(function(resolve, reject){
+    try{
+      var pdfjsLib = window['pdfjs-dist/build/pdf'];
+      if(!pdfjsLib){ reject('pdfjs not loaded'); return; }
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      var task = pdfjsLib.getDocument({data: buffer});
+      task.promise.then(function(pdf){
+        var allText = '';
+        var chain = Promise.resolve();
+        for(var i=1;i<=pdf.numPages;i++){
+          (function(pageNum){
+            chain = chain.then(function(){
+              return pdf.getPage(pageNum).then(function(page){
+                return page.getTextContent().then(function(content){
+                  var pageText = content.items.map(function(item){ return item.str; }).join(' ');
+                  allText += pageText + '\n';
+                });
+              });
+            });
+          })(i);
+        }
+        chain.then(function(){ resolve(allText); }).catch(reject);
+      }).catch(reject);
+    }catch(e){ reject(e); }
+  });
+}
+
+function extractDocxText(buffer){
+  return new Promise(function(resolve, reject){
+    try{
+      if(!window.mammoth){ reject('mammoth not loaded'); return; }
+      mammoth.extractRawText({arrayBuffer: buffer}).then(function(result){
+        resolve(result.value);
+      }).catch(reject);
+    }catch(e){ reject(e); }
+  });
+}
+
+function loadPdfJs(){
+  if(state.pdfJsLoaded && window['pdfjs-dist/build/pdf']) return Promise.resolve();
+  return new Promise(function(resolve, reject){
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload = function(){ state.pdfJsLoaded = true; resolve(); };
+    s.onerror = function(){ reject('pdf.js load failed'); };
+    document.head.appendChild(s);
+  });
+}
+
+function loadMammoth(){
+  if(state.mammothLoaded && window.mammoth) return Promise.resolve();
+  return new Promise(function(resolve, reject){
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js';
+    s.onload = function(){ state.mammothLoaded = true; resolve(); };
+    s.onerror = function(){ reject('mammoth.js load failed'); };
+    document.head.appendChild(s);
+  });
+}
+
+function parseQuestionsText(text){
+  var questions = [];
+  // Try to split by numbered questions: "1. Question" or "1) Question"
+  var blocks = text.split(/(?=\d+[\.\)])\d+[\.\)]\s*/);
+  for(var i=0;i<blocks.length;i++){
+    var block = blocks[i].trim();
+    if(!block) continue;
+    var q = parseSingleQuestion(block);
+    if(q) questions.push(q);
+  }
+  return questions;
+}
+
+function parseSingleQuestion(block){
+  var lines = block.split('\n').map(function(l){return l.trim();}).filter(function(l){return l;});
+  if(lines.length < 3) return null;
+  var questionText = '';
+  var options = [];
+  var correctIndex = -1;
+  var optStart = -1;
+  // Find where options start
+  for(var i=0;i<lines.length;i++){
+    if(/^[A-Da-d][\.\)\s]/.test(lines[i])){
+      optStart = i; break;
+    }
+  }
+  if(optStart === -1) return null;
+  questionText = lines.slice(0, optStart).join(' ');
+  for(var j=optStart;j<lines.length;j++){
+    var line = lines[j];
+    var optMatch = line.match(/^([A-Da-d])[\.\)\s]\s*(.*)/);
+    if(optMatch){
+      options.push(optMatch[2].trim());
+    } else if(/to'g'ri javob|tog'ri javob|to'g'ri|tog'ri|javob/i.test(line)){
+      var ansMatch = line.match(/([A-Da-d])/i);
+      if(ansMatch){
+        var letter = ansMatch[1].toUpperCase();
+        correctIndex = 'ABCD'.indexOf(letter);
+      }
+    }
+  }
+  if(options.length < 2 || correctIndex === -1) return null;
+  return {text: questionText, options: options, correctIndex: correctIndex};
+}
+
+function parseManual(){
+  var text = $('manualInput').value;
+  if(!text.trim()){ toast('Matn kiriting','error'); return; }
+  var qs = parseQuestionsText(text);
+  if(qs.length > 0){
+    state.questions = qs;
+    toast(qs.length + ' ta savol topildi','success');
+    updateQuestionCount();
+  } else {
+    toast('Savol topilmadi. Formatni tekshiring','error');
+  }
+}
+
+function loadDefaults(){
+  state.questions = JSON.parse(JSON.stringify(defaultQuestions));
+  toast('100 ta standart savol yuklandi','success');
+  updateQuestionCount();
+}
+
+function updateQuestionCount(){
+  $('qCountNum').textContent = state.questions.length;
+  $('questionCount').style.display = 'block';
+  $('btnStep1Next').disabled = state.questions.length === 0;
+}
+
+function renderQuestionsEditor(){
+  var container = $('questionsEditor');
+  container.innerHTML = '';
+  state.questions.forEach(function(q, idx){
+    var div = document.createElement('div');
+    div.className = 'q-edit-item';
+    div.dataset.idx = idx;
+    var html = '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><strong style="font-size:.85rem">#'+(idx+1)+'</strong><button class="del-btn" onclick="App.deleteQuestion('+idx+')" title="O\'chirish">🗑️</button></div>';
+    html += '<textarea class="q-text" rows="2">'+escHtml(q.text)+'</textarea>';
+    var letters = ['A','B','C','D','E','F'];
+    q.options.forEach(function(opt, oi){
+      html += '<div class="opt-row">';
+      html += '<input type="radio" class="radio-correct" name="correct_'+idx+'" value="'+oi+'" '+(q.correctIndex===oi?'checked':'')+' title="To\'g\'ri javob">';
+      html += '<input class="opt-input" value="'+escHtml(opt)+'" '+(q.correctIndex===oi?'style="border-color:var(--success);background:rgba(16,185,129,.1)"':'')+'>';
+      html += '<span style="color:var(--text2);font-size:.75rem;min-width:16px">'+letters[oi]+'</span>';
+      html += '</div>';
+    });
+    div.innerHTML = html;
+    container.appendChild(div);
+    // Add event listeners for radio buttons
+    var radios = div.querySelectorAll('.radio-correct');
+    radios.forEach(function(r){
+      r.addEventListener('change', function(){
+        var inputs = div.querySelectorAll('.opt-input');
+        inputs.forEach(function(inp){ inp.style.borderColor=''; inp.style.background=''; });
+        var sel = div.querySelector('.radio-correct:checked');
+        if(sel){
+          var val = parseInt(sel.value);
+          inputs[val].style.borderColor='var(--success)';
+          inputs[val].style.background='rgba(16,185,129,.1)';
+        }
+      });
+    });
+  });
+}
+
+function collectQuestionsFromEditor(){
+  var items = document.querySelectorAll('.q-edit-item');
+  var qs = [];
+  items.forEach(function(item){
+    var text = item.querySelector('.q-text').value.trim();
+    if(!text) return;
+    var optInputs = item.querySelectorAll('.opt-input');
+    var options = [];
+    optInputs.forEach(function(inp){ if(inp.value.trim()) options.push(inp.value.trim()); });
+    if(options.length < 2) return;
+    var radio = item.querySelector('.radio-correct:checked');
+    var correctIndex = radio ? parseInt(radio.value) : 0;
+    if(correctIndex >= options.length) correctIndex = 0;
+    qs.push({text: text, options: options, correctIndex: correctIndex});
+  });
+  state.questions = qs;
+}
+
+function addQuestion(){
+  state.questions.push({text:'Yangi savol',options:['Variant A','Variant B','Variant C','Variant D'],correctIndex:0});
+  renderQuestionsEditor();
+  var container = $('questionsEditor');
+  container.scrollTop = container.scrollHeight;
+}
+
+function deleteQuestion(idx){
+  state.questions.splice(idx,1);
+  renderQuestionsEditor();
+}
+
+function escHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function generateCredentials(){
+  $('groupLogin').value = $('groupName').value ? $('groupName').value.toLowerCase().replace(/\s+/g,'').substring(0,8) + Math.floor(Math.random()*100) : 'user' + Math.floor(Math.random()*10000);
+  $('groupPassword').value = generateCode(6).toLowerCase();
+}
+
+// ========== CREATE TEST ==========
+function createTest(){
+  collectQuestionsFromEditor();
+  if(state.questions.length === 0){ toast('Savollar yo\'q','error'); return; }
+  var name = $('testName').value.trim() || 'Nomsiz test';
+  var time = parseInt($('testTime').value) || 30;
+  var groupName = $('groupName').value.trim() || 'Guruh';
+  var login = $('groupLogin').value.trim();
+  var password = $('groupPassword').value.trim();
+  var startMode = $('startMode').value;
+
+  if(!login){ toast('Login kiriting','error'); return; }
+  if(!password){ toast('Parol kiriting','error'); return; }
+
+  var roomCode = generateCode(6);
+
+  state.testConfig = {
+    name: name,
+    time: time,
+    groupName: groupName,
+    login: login,
+    password: password,
+    startMode: startMode,
+    roomCode: roomCode,
+    questions: JSON.parse(JSON.stringify(state.questions)),
+    createdAt: Date.now()
+  };
+
+  // Save to localStorage
+  try{
+    var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
+    saved[roomCode] = state.testConfig;
+    localStorage.setItem('zakovat_tests', JSON.stringify(saved));
+  }catch(e){}
+
+  var testCode = encodeTest(state.testConfig);
+
+  var modalHtml = '<div style="text-align:center">';
+  modalHtml += '<div style="font-size:3rem;margin-bottom:8px">🎉</div>';
+  modalHtml += '<h2 style="margin-bottom:16px">Test muvaffaqiyatli yaratildi!</h2>';
+  modalHtml += '<div style="margin-bottom:16px">';
+  modalHtml += '<div style="color:var(--text2);font-size:.8rem;margin-bottom:4px">XONA KODI (real vaqt uchun)</div>';
+  modalHtml += '<div class="code-display" id="modalRoomCode">'+roomCode+'</div>';
+  modalHtml += '<button class="copy-btn" onclick="App.copyCode(\'modalRoomCode\')">📋 Nusxalash</button>';
+  modalHtml += '</div>';
+  modalHtml += '<div style="display:flex;gap:12px;margin-bottom:16px">';
+  modalHtml += '<div style="flex:1"><div style="color:var(--text2);font-size:.75rem;margin-bottom:4px">Login</div><div style="background:var(--bg);padding:8px;border-radius:6px;font-weight:600;font-size:.9rem" id="modalLogin">'+escHtml(login)+'</div><button class="copy-btn" onclick="App.copyCode(\'modalLogin\')" style="margin-top:4px">📋</button></div>';
+  modalHtml += '<div style="flex:1"><div style="color:var(--text2);font-size:.75rem;margin-bottom:4px">Parol</div><div style="background:var(--bg);padding:8px;border-radius:6px;font-weight:600;font-size:.9rem" id="modalPassword">'+escHtml(password)+'</div><button class="copy-btn" onclick="App.copyCode(\'modalPassword\')" style="margin-top:4px">📋</button></div>';
+  modalHtml += '</div>';
+  modalHtml += '<div style="margin-bottom:16px">';
+  modalHtml += '<div style="color:var(--text2);font-size:.8rem;margin-bottom:4px">TEST KODI (ofline uchun)</div>';
+  modalHtml += '<textarea class="input" id="modalTestCode" rows="3" style="font-size:.65rem;word-break:break-all" readonly>'+escHtml(testCode)+'</textarea>';
+  modalHtml += '<button class="copy-btn" onclick="App.copyCode(\'modalTestCode\')" style="margin-top:4px">📋 Test kodini nusxalash</button>';
+  modalHtml += '</div>';
+  modalHtml += '<div class="modal-actions" style="flex-direction:column;gap:8px">';
+  modalHtml += '<button class="btn btn-success btn-block" onclick="App.closeModal();App.openControlPanel()">🚀 Guruhni boshqarish</button>';
+  modalHtml += '<button class="btn btn-secondary btn-block" onclick="App.closeModal();App.goLanding()">🏠 Bosh sahifaga</button>';
+  modalHtml += '</div></div>';
+
+  showModal(modalHtml);
+}
+
+function copyCode(elId){
+  var el = $(elId);
+  if(el.tagName === 'TEXTAREA'){
+    copyText(el.value);
+  } else {
+    copyText(el.textContent);
+  }
+}
+
+// ========== PEERJS HOST (TEACHER) ==========
+function openControlPanel(){
+  if(!state.testConfig){ toast('Avval test tuzing','error'); return; }
+  state.isHost = true;
+  state.connections = [];
+  state.members = [];
+  state.results = [];
+
+  var roomCode = state.testConfig.roomCode;
+  $('controlTestName').textContent = state.testConfig.name;
+  $('controlRoomCode').textContent = roomCode;
+  updateControlMembers();
+
+  // Create PeerJS host
+  try{
+    if(typeof Peer === 'undefined'){
+      toast('PeerJS yuklanmadi. Internet aloqasini tekshiring.','error');
+      return;
+    }
+    if(state.peer){ try{state.peer.destroy();}catch(e){} }
+    state.peer = new Peer('zakovat-' + roomCode);
+
+    state.peer.on('open', function(id){
+      $('hostConnStatus').innerHTML = '<span class="dot dot-green"></span> Aktiv';
+      toast('Xona tayyor: ' + roomCode, 'success');
+    });
+
+    state.peer.on('connection', function(conn){
+      handleHostConnection(conn);
+    });
+
+    state.peer.on('error', function(err){
+      console.error('PeerJS host error:', err);
+      if(err.type === 'unavailable-id'){
+        toast('Bu xona kodi band. Boshqa kod bilan qayta urinib ko\'ring.','error');
+      } else {
+        $('hostConnStatus').innerHTML = '<span class="dot dot-red"></span> Xato';
+      }
+    });
+
+    state.peer.on('disconnected', function(){
+      $('hostConnStatus').innerHTML = '<span class="dot dot-yellow"></span> Uzilgan';
+      // Try to reconnect
+      setTimeout(function(){
+        if(state.peer && !state.peer.destroyed){
+          try{ state.peer.reconnect(); }catch(e){}
+        }
+      }, 2000);
+    });
+
+    showScreen('screenTeacherControl');
+  }catch(e){
+    toast('PeerJS xatosi: ' + e.message, 'error');
+  }
+}
+
+function handleHostConnection(conn){
+  conn.on('open', function(){
+    // Wait for join message
+  });
+
+  conn.on('data', function(data){
+    try{
+      if(data.type === 'join'){
+        // Validate credentials
+        var sLogin = data.login || '';
+        var sPassword = data.password || '';
+        if(sLogin !== state.testConfig.login || sPassword !== state.testConfig.password){
+          conn.send({type:'auth_failed', message:'Login yoki parol noto\'g\'ri'});
+          setTimeout(function(){ try{conn.close();}catch(e){} }, 1000);
+          return;
+        }
+        // Add member
+        var member = {
+          id: conn.peer,
+          name: data.name || 'Noma\'lum',
+          conn: conn,
+          joinedAt: Date.now()
+        };
+        state.connections.push(member);
+        state.members.push({id: conn.peer, name: member.name});
+
+        // Send test data
+        conn.send({
+          type: 'test_data',
+          test: {
+            name: state.testConfig.name,
+            time: state.testConfig.time,
+            questions: state.testConfig.questions,
+            startMode: state.testConfig.startMode,
+            groupName: state.testConfig.groupName,
+            login: state.testConfig.login,
+            password: state.testConfig.password,
+            roomCode: state.testConfig.roomCode
+          },
+          memberIndex: state.members.length - 1
+        });
+
+        // Broadcast members update
+        broadcastToAll({type:'members_update', members: state.members.map(function(m){return {id:m.id,name:m.name};})});
+        updateControlMembers();
+        toast(member.name + ' qo\'shildi', 'info');
+      }
+
+      if(data.type === 'result'){
+        var result = data.result;
+        result.name = result.name || 'Noma\'lum';
+        state.results.push(result);
+        updateControlResults();
+        broadcastToAll({type:'student_finished', name: result.name, result: result});
+      }
+    }catch(e){ console.error('Host data error:', e); }
+  });
+
+  conn.on('close', function(){
+    // Remove member
+    var idx = -1;
+    for(var i=0;i<state.connections.length;i++){
+      if(state.connections[i].conn === conn){ idx = i; break; }
+    }
+    if(idx !== -1){
+      var name = state.connections[idx].name;
+      state.connections.splice(idx, 1);
+      state.members.splice(idx, 1);
+      broadcastToAll({type:'members_update', members: state.members.map(function(m){return {id:m.id,name:m.name};})});
+      updateControlMembers();
+      toast(name + ' uzildi', 'warning');
+    }
+  });
+
+  conn.on('error', function(err){
+    console.error('Connection error:', err);
+  });
+}
+
+function broadcastToAll(data){
+  state.connections.forEach(function(m){
+    try{ if(m.conn && m.conn.open) m.conn.send(data); }catch(e){}
+  });
+}
+
+function updateControlMembers(){
+  $('controlMemberCount').textContent = state.members.length + ' ta talaba';
+  var container = $('controlMembers');
+  if(state.members.length === 0){
+    container.innerHTML = '<div style="color:var(--text2);font-size:.85rem;text-align:center;padding:20px">Hali talaba ulanmadi...</div>';
+    return;
+  }
+  container.innerHTML = '';
+  state.members.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.className = 'member-item';
+    div.innerHTML = '<span class="dot dot-green"></span><span class="name">'+escHtml(m.name)+'</span><span class="badge badge-primary">#'+(i+1)+'</span>';
+    container.appendChild(div);
+  });
+}
+
+function updateControlResults(){
+  var container = $('controlResults');
+  if(state.results.length === 0){
+    container.innerHTML = '<div style="color:var(--text2);font-size:.85rem;text-align:center;padding:20px">Hali natija yo\'q</div>';
+    return;
+  }
+  container.innerHTML = '';
+  state.results.forEach(function(r){
+    var div = document.createElement('div');
+    div.className = 'member-item';
+    var pct = r.total > 0 ? Math.round(r.correct / r.total * 100) : 0;
+    var badgeClass = pct >= 70 ? 'badge-success' : pct >= 50 ? 'badge-warning' : 'badge-danger';
+    div.innerHTML = '<span class="name">'+escHtml(r.name)+'</span><span class="badge '+badgeClass+'">'+pct+'% ('+r.correct+'/'+r.total+')</span>';
+    container.appendChild(div);
+  });
+}
+
+function startGroupTest(){
+  if(state.connections.length === 0){
+    toast('Kamida 1 ta talaba ulangan bo\'lishi kerak','error');
+    return;
+  }
+  broadcastToAll({type:'start_test'});
+  toast('Test boshlandi!','success');
+  $('btnStartGroup').disabled = true;
+  $('btnStartGroup').textContent = '✅ Test boshlangan';
+}
+
+// ========== PEERJS CLIENT (STUDENT) ==========
+function connectToRoom(){
+  var roomCode = $('roomCodeInput').value.trim().toUpperCase();
+  if(roomCode.length !== 6){
+    toast('6 xonali xona kodini kiriting','error');
+    return;
+  }
+  var studentName = $('studentName').value.trim();
+  if(!studentName){
+    toast('Ismingizni kiriting','error');
+    return;
+  }
+  var login = $('studentLoginInput').value.trim();
+  var password = $('studentPasswordInput').value.trim();
+  if(!login || !password){
+    toast('Login va parolni kiriting (o\'qituvchi bergan)','error');
+    return;
+  }
+
+  state.roomCode = roomCode;
+  $('connStatus').innerHTML = '<span class="spinner" style="width:16px;height:16px;border-width:2px;display:inline-block;vertical-align:middle"></span> Ulanmoqda...';
+  $('btnConnectRoom').disabled = true;
+
+  try{
+    if(typeof Peer === 'undefined'){
+      $('connStatus').innerHTML = '<span class="badge badge-danger">PeerJS yuklanmadi</span>';
+      $('btnConnectRoom').disabled = false;
+      toast('PeerJS yuklanmadi. Test kodi usulidan foydalaning.','error');
+      return;
+    }
+
+    // Cleanup existing peer
+    if(state.peer){ try{state.peer.destroy();}catch(e){} }
+    state.peer = new Peer();
+
+    state.peer.on('open', function(myId){
+      var conn = state.peer.connect('zakovat-' + roomCode);
+      state.studentConn = conn;
+
+      conn.on('open', function(){
+        // Send join with credentials from input or prompt
+        var login = $('studentLoginInput').value.trim() || '';
+        var password = $('studentPasswordInput').value.trim() || '';
+        conn.send({
+          type: 'join',
+          name: studentName,
+          login: login,
+          password: password
+        });
+        $('connStatus').innerHTML = '<span class="dot dot-green"></span> Ulandi, kutmoqda...';
+      });
+
+      conn.on('data', function(data){
+        handleStudentData(data);
+      });
+
+      conn.on('close', function(){
+        $('waitConnStatus').innerHTML = '<span class="dot dot-red"></span> Uzilgan';
+        toast('O\'qituvchi uzildi','error');
+      });
+
+      conn.on('error', function(err){
+        $('connStatus').innerHTML = '<span class="badge badge-danger">Xato: '+err.type+'</span>';
+        $('btnConnectRoom').disabled = false;
+      });
+
+      // Connection timeout
+      setTimeout(function(){
+        if(!conn.open){
+          $('connStatus').innerHTML = '<span class="badge badge-danger">Ulanish vaqti tugadi</span>';
+          $('btnConnectRoom').disabled = false;
+          try{conn.close();}catch(e){}
+        }
+      }, 15000);
+    });
+
+    state.peer.on('error', function(err){
+      console.error('PeerJS client error:', err);
+      if(err.type === 'peer-unavailable'){
+        $('connStatus').innerHTML = '<span class="badge badge-danger">Xona topilmadi. Kodni tekshiring.</span>';
+      } else {
+        $('connStatus').innerHTML = '<span class="badge badge-danger">Xato: '+err.type+'</span>';
+      }
+      $('btnConnectRoom').disabled = false;
+    });
+
+  }catch(e){
+    $('connStatus').innerHTML = '<span class="badge badge-danger">Xato</span>';
+    $('btnConnectRoom').disabled = false;
+    toast('Ulanish xatosi: ' + e.message, 'error');
+  }
+}
+
+function handleStudentData(data){
+  try{
+    if(data.type === 'auth_failed'){
+      toast(data.message || 'Autentifikatsiya xatosi','error');
+      if(state.studentConn){ try{state.studentConn.close();}catch(e){} }
+      goStudent();
+      return;
+    }
+
+    if(data.type === 'test_data'){
+      // Store test data
+      state.testConfig = data.test;
+      // Auto-fill credentials
+      $('studentLoginInput').value = data.test.login || '';
+      $('studentPasswordInput').value = data.test.password || '';
+      // Save to localStorage
+      try{
+        var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
+        saved[data.test.roomCode] = data.test;
+        localStorage.setItem('zakovat_tests', JSON.stringify(saved));
+      }catch(e){}
+
+      // Show wait screen
+      $('waitRoomCode').textContent = data.test.roomCode;
+      showScreen('screenStudentWait');
+
+      // If individual mode, show start button
+      if(data.test.startMode === 'individual'){
+        toast('Test tayyor! Boshlash tugmasini bosing.','info');
+      }
+    }
+
+    if(data.type === 'start_test'){
+      startQuiz();
+    }
+
+    if(data.type === 'members_update'){
+      renderWaitMembers(data.members);
+    }
+
+    if(data.type === 'student_finished'){
+      toast(data.name + ' testni yakunladi','info');
+    }
+  }catch(e){ console.error('Student data error:', e); }
+}
+
+function renderWaitMembers(members){
+  var container = $('waitMembers');
+  container.innerHTML = '';
+  members.forEach(function(m, i){
+    var div = document.createElement('div');
+    div.className = 'member-item';
+    div.innerHTML = '<span class="dot dot-green"></span><span class="name">'+escHtml(m.name)+'</span>';
+    container.appendChild(div);
+  });
+}
+
+function leaveRoom(){
+  if(state.studentConn){ try{state.studentConn.close();}catch(e){} }
+  if(state.peer){ try{state.peer.destroy();}catch(e){} }
+  state.studentConn = null;
+  state.peer = null;
+  goStudent();
+}
+
+// ========== TEST CODE IMPORT ==========
+function importTestCode(){
+  var code = $('testCodeInput').value.trim();
+  if(!code){ toast('Test kodini kiriting','error'); return; }
+  var test = decodeTest(code);
+  if(!test || !test.questions || test.questions.length === 0){
+    toast('Test kodi noto\'g\'ri','error'); return;
+  }
+  state.testConfig = test;
+  // Save to localStorage
+  try{
+    var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
+    if(test.roomCode) saved[test.roomCode] = test;
+    localStorage.setItem('zakovat_tests', JSON.stringify(saved));
+  }catch(e){}
+  toast(test.questions.length + ' ta savol yuklandi! Endi xona kodi va login/parol bilan ulaning','success');
+  $('studentLoginInput').value = test.login || '';
+  $('studentPasswordInput').value = test.password || '';
+  if(test.roomCode) $('roomCodeInput').value = test.roomCode;
+}
+
+// ========== LOGIN WITH CREDENTIALS ==========
+function loginWithCredentials(){
+  var login = $('studentLoginInput').value.trim();
+  var password = $('studentPasswordInput').value.trim();
+  var studentName = $('studentName').value.trim();
+  if(!login || !password){ toast('Login va parol kiriting','error'); return; }
+  if(!studentName){ toast('Ismingizni kiriting','error'); return; }
+
+  // Search localStorage
+  try{
+    var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
+    var found = null;
+    for(var key in saved){
+      if(saved[key].login === login && saved[key].password === password){
+        found = saved[key]; break;
+      }
+    }
+    if(found){
+      state.testConfig = found;
+      toast('Test topildi: ' + found.name,'success');
+      // If has room code and not connecting via PeerJS, start immediately
+      if(found.startMode === 'individual' || !found.roomCode){
+        startQuiz();
+      } else {
+        // Try to connect via room code
+        $('roomCodeInput').value = found.roomCode || '';
+        connectToRoom();
+      }
+    } else {
+      toast('Login yoki parol noto\'g\'ri','error');
+    }
+  }catch(e){
+    toast('Xato','error');
+  }
+}
+
+// ========== QUIZ ENGINE ==========
+function startQuiz(){
+  if(!state.testConfig || !state.testConfig.questions || state.testConfig.questions.length === 0){
+    toast('Test ma\'lumotlari topilmadi','error'); return;
+  }
+
+  // Shuffle questions
+  var shuffled = shuffleArray(state.testConfig.questions);
+
+  // For each question, shuffle options and track correct index
+  state.quiz = {
+    questions: shuffled.map(function(q){
+      var indices = [];
+      for(var i=0;i<q.options.length;i++) indices.push(i);
+      var shuffledIndices = shuffleArray(indices);
+      return {
+        text: q.text,
+        options: shuffledIndices.map(function(si){ return q.options[si]; }),
+        correctIndex: shuffledIndices.indexOf(q.correctIndex),
+        originalCorrectIndex: q.correctIndex
+      };
+    }),
+    current: 0,
+    answered: new Array(shuffled.length).fill(false),
+    selectedOptions: new Array(shuffled.length).fill(-1),
+    correctCount: 0,
+    wrongCount: 0,
+    totalQuestions: shuffled.length,
+    timePerQuestion: state.testConfig.time || 30,
+    timeLeft: state.testConfig.time || 30,
+    isWaitingForCorrect: false,
+    startTime: Date.now()
+  };
+
+  $('testTitle').textContent = state.testConfig.name;
+  $('qTotal').textContent = state.quiz.totalQuestions;
+  $('btnFinish').style.display = 'none';
+
+  renderQuestion();
+  renderQuestionNav();
+  startTimer();
+  showScreen('screenTest');
+
+  // Prevent copy/cut/right-click during test
+  document.addEventListener('copy', preventCopy);
+  document.addEventListener('cut', preventCopy);
+  document.addEventListener('contextmenu', preventCopy);
+}
+
+function preventCopy(e){ e.preventDefault(); }
+
+function renderQuestion(){
+  var q = state.quiz.questions[state.quiz.current];
+  $('qCurrent').textContent = state.quiz.current + 1;
+  $('questionText').textContent = q.text;
+
+  var container = $('optionsContainer');
+  container.innerHTML = '';
+  var letters = ['A','B','C','D','E','F'];
+
+  q.options.forEach(function(opt, idx){
+    var btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = '<span class="option-letter">'+letters[idx]+'</span><span>'+escHtml(opt)+'</span>';
+    btn.onclick = function(){ selectOption(idx); };
+    container.appendChild(btn);
+  });
+
+  $('feedbackMsg').innerHTML = '';
+
+  // Reset timer for this question
+  state.quiz.timeLeft = state.quiz.timePerQuestion;
+  state.quiz.isWaitingForCorrect = false;
+  updateTimerDisplay();
+}
+
+function selectOption(idx){
+  if(state.quiz.isWaitingForCorrect) return;
+
+  var q = state.quiz.questions[state.quiz.current];
+  var btns = document.querySelectorAll('.option-btn');
+  var isCorrect = idx === q.correctIndex;
+
+  if(isCorrect){
+    btns[idx].classList.add('correct');
+    btns.forEach(function(b){ b.classList.add('disabled'); });
+    state.quiz.isWaitingForCorrect = true;
+    state.quiz.answered[state.quiz.current] = true;
+    state.quiz.selectedOptions[state.quiz.current] = idx;
+    state.quiz.correctCount++;
+
+    $('feedbackMsg').innerHTML = '<div class="msg-feedback msg-correct">✅ To\'g\'ri javob!</div>';
+
+    // Auto advance after 800ms
+    setTimeout(function(){
+      if(state.quiz.current < state.quiz.totalQuestions - 1){
+        state.quiz.current++;
+        renderQuestion();
+        renderQuestionNav();
+      } else {
+        // Last question, show finish button
+        $('btnFinish').style.display = 'block';
+      }
+      // Show finish button if at least 1 answered
+      if(state.quiz.correctCount + state.quiz.wrongCount >= 1){
+        $('btnFinish').style.display = 'block';
+      }
+    }, 800);
+  } else {
+    btns[idx].classList.add('wrong');
+    state.quiz.wrongCount++;
+    state.quiz.selectedOptions[state.quiz.current] = idx;
+
+    $('feedbackMsg').innerHTML = '<div class="msg-feedback msg-wrong">❌ Noto\'g\'ri javob! To\'g\'ri javobni tanlang.</div>';
+
+    // Highlight correct answer but don't auto-advance
+    btns[q.correctIndex].classList.add('correct');
+    btns.forEach(function(b, i){
+      if(i !== idx && i !== q.correctIndex) b.classList.add('disabled');
+    });
+    btns[idx].classList.add('disabled');
+    state.quiz.isWaitingForCorrect = true;
+
+    // Click correct answer to proceed
+    btns[q.correctIndex].onclick = function(){
+      state.quiz.answered[state.quiz.current] = true;
+      state.quiz.correctCount++; // Count the forced correct as well (already counted wrong above, so net 0)
+      // Actually, let's not double count. The wrong was already counted.
+      // Just mark as answered and move on.
+      $('feedbackMsg').innerHTML = '<div class="msg-feedback msg-correct">✅ To\'g\'ri javob!</div>';
+      setTimeout(function(){
+        if(state.quiz.current < state.quiz.totalQuestions - 1){
+          state.quiz.current++;
+          renderQuestion();
+          renderQuestionNav();
+        }
+        if(state.quiz.correctCount >= 1 || state.quiz.answered.some(function(a){return a;})){
+          $('btnFinish').style.display = 'block';
+        }
+      }, 600);
+    };
+  }
+}
+
+function renderQuestionNav(){
+  var container = $('questionNav');
+  container.innerHTML = '';
+  state.quiz.questions.forEach(function(q, idx){
+    var dot = document.createElement('div');
+    dot.className = 'q-dot';
+    if(idx === state.quiz.current) dot.classList.add('current');
+    if(state.quiz.answered[idx]) dot.classList.add('answered');
+    dot.textContent = idx + 1;
+    dot.onclick = (function(i){ return function(){
+      // Only allow navigating to answered questions or current
+      if(state.quiz.answered[i] || i === state.quiz.current){
+        state.quiz.current = i;
+        renderQuestion();
+        renderQuestionNav();
+      }
+    };})(idx);
+    container.appendChild(dot);
+  });
+}
+
+function startTimer(){
+  if(state.timerInterval) clearInterval(state.timerInterval);
+  state.quiz.timeLeft = state.quiz.timePerQuestion;
+
+  state.timerInterval = setInterval(function(){
+    if(!state.quiz) { clearInterval(state.timerInterval); return; }
+    if(state.quiz.isWaitingForCorrect) return; // Pause timer when waiting
+
+    state.quiz.timeLeft -= 0.1;
+    if(state.quiz.timeLeft <= 0){
+      state.quiz.timeLeft = 0;
+      timeUp();
+    }
+    updateTimerDisplay();
+  }, 100);
+}
+
+function updateTimerDisplay(){
+  if(!state.quiz) return;
+  var timeLeft = Math.max(0, state.quiz.timeLeft);
+  $('timerDisplay').textContent = Math.ceil(timeLeft);
+  var pct = (timeLeft / state.quiz.timePerQuestion) * 100;
+  $('timerFill').style.width = pct + '%';
+
+  var fill = $('timerFill');
+  fill.classList.remove('safe','warn','danger');
+  if(pct > 50) fill.classList.add('safe');
+  else if(pct > 20) fill.classList.add('warn');
+  else fill.classList.add('danger');
+
+  $('timerDisplay').style.color = pct > 50 ? 'var(--success)' : pct > 20 ? 'var(--warning)' : 'var(--danger)';
+}
+
+function timeUp(){
+  var q = state.quiz.questions[state.quiz.current];
+  var btns = document.querySelectorAll('.option-btn');
+
+  // Show correct answer
+  btns[q.correctIndex].classList.add('correct');
+  btns.forEach(function(b, i){
+    if(i !== q.correctIndex) b.classList.add('disabled');
+  });
+
+  $('feedbackMsg').innerHTML = '<div class="msg-feedback msg-wrong">⏰ Vaqt tugadi! To\'g\'ri javobni tanlang.</div>';
+  state.quiz.isWaitingForCorrect = true;
+
+  // Click correct to proceed
+  btns[q.correctIndex].onclick = function(){
+    state.quiz.answered[state.quiz.current] = true;
+    $('feedbackMsg').innerHTML = '<div class="msg-feedback msg-correct">✅ Davom etamiz!</div>';
+    setTimeout(function(){
+      if(state.quiz.current < state.quiz.totalQuestions - 1){
+        state.quiz.current++;
+        renderQuestion();
+        renderQuestionNav();
+      }
+      $('btnFinish').style.display = 'block';
+    }, 600);
+  };
+}
+
+function finishTest(){
+  if(state.timerInterval) clearInterval(state.timerInterval);
+
+  var totalAnswered = state.quiz.answered.filter(function(a){return a;}).length;
+  var totalTime = Math.round((Date.now() - state.quiz.startTime) / 1000);
+
+  // Calculate actual score: questions where first attempt was correct
+  var correctFirst = 0;
+  // Since we track wrongCount and correctCount:
+  // correctCount includes forced clicks on correct after wrong
+  // We need a better metric: total questions answered minus wrong attempts
+  // Simpler: correctCount includes both first-attempt correct AND forced-correct
+  // wrongCount is the number of wrong first attempts
+  // So "clean" correct = totalAnswered - wrongCount? No...
+  // Let's just use: answered questions count vs wrong attempts
+  var netCorrect = totalAnswered;
+  var netWrong = state.quiz.wrongCount;
+  // Actually let's recalculate: each question is either correct on first try or not
+  // The wrongCount tracks wrong attempts. A question with a wrong attempt then correct = not clean correct
+  var cleanCorrect = totalAnswered - netWrong;
+  if(cleanCorrect < 0) cleanCorrect = 0;
+
+  var pct = state.quiz.totalQuestions > 0 ? Math.round(cleanCorrect / state.quiz.totalQuestions * 100) : 0;
+
+  var result = {
+    name: $('studentName').value.trim() || 'Noma\'lum',
+    correct: cleanCorrect,
+    wrong: netWrong,
+    total: state.quiz.totalQuestions,
+    percent: pct,
+    time: totalTime,
+    answered: totalAnswered
+  };
+
+  // Show result screen
+  $('resultScore').textContent = pct + '%';
+  $('resultCorrect').textContent = cleanCorrect;
+  $('resultWrong').textContent = netWrong;
+  $('resultTime').textContent = formatTime(totalTime);
+  $('resultDetail').textContent = cleanCorrect + ' ta to\'g\'ri, ' + netWrong + ' ta noto\'g\'ri (jami ' + state.quiz.totalQuestions + ' savoldan ' + totalAnswered + ' ta javob berildi)';
+
+  if(pct >= 86) $('resultEmoji').textContent = '🏆';
+  else if(pct >= 71) $('resultEmoji').textContent = '🥇';
+  else if(pct >= 56) $('resultEmoji').textContent = '🥈';
+  else if(pct >= 40) $('resultEmoji').textContent = '🥉';
+  else $('resultEmoji').textContent = '📚';
+
+  // Send result to teacher via PeerJS
+  if(state.studentConn && state.studentConn.open){
+    try{
+      state.studentConn.send({type:'result', result: result});
+    }catch(e){}
+  }
+
+  // Remove copy prevention
+  document.removeEventListener('copy', preventCopy);
+  document.removeEventListener('cut', preventCopy);
+  document.removeEventListener('contextmenu', preventCopy);
+
+  state.quiz = null;
+  showScreen('screenResult');
+}
+
+function formatTime(seconds){
+  var m = Math.floor(seconds/60);
+  var s = seconds % 60;
+  if(m > 0) return m + ' daq ' + s + ' son';
+  return s + ' soniya';
+}
+
+// ========== CLEANUP ==========
+function cleanupPeer(){
+  if(state.timerInterval) clearInterval(state.timerInterval);
+  if(state.connections){
+    state.connections.forEach(function(m){
+      try{ if(m.conn) m.conn.close(); }catch(e){}
+    });
+  }
+  if(state.studentConn){ try{state.studentConn.close();}catch(e){} }
+  if(state.peer){ try{state.peer.destroy();}catch(e){} }
+  state.peer = null;
+  state.studentConn = null;
+  state.connections = [];
+  state.members = [];
+  state.isHost = false;
+  state.quiz = null;
+  document.removeEventListener('copy', preventCopy);
+  document.removeEventListener('cut', preventCopy);
+  document.removeEventListener('contextmenu', preventCopy);
+}
+
+// ========== PUBLIC API ==========
+return {
+  goLanding: goLanding,
+  goTeacher: goTeacher,
+  goStudent: goStudent,
+  setUploadTab: setUploadTab,
+  setStudentTab: setStudentTab,
+  handleFileUpload: handleFileUpload,
+  parseManual: parseManual,
+  loadDefaults: loadDefaults,
+  teacherNext: teacherNext,
+  addQuestion: addQuestion,
+  deleteQuestion: deleteQuestion,
+  generateCredentials: generateCredentials,
+  createTest: createTest,
+  copyCode: copyCode,
+  closeModal: closeModal,
+  openControlPanel: openControlPanel,
+  startGroupTest: startGroupTest,
+  connectToRoom: connectToRoom,
+  importTestCode: importTestCode,
+  loginWithCredentials: loginWithCredentials,
+  leaveRoom: leaveRoom,
+  finishTest: finishTest
+};
+
+})();
+</script>
+</body>
+</html>
