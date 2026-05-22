@@ -346,13 +346,23 @@ WebRTC orqali real vaqtda sinxronizatsiya &bull; Hech qanday server talab emas
 <div id="connStatus" style="margin-top:8px;text-align:center;font-size:.8rem;color:var(--text2)"></div>
 </div>
 
-<div style="text-align:center;margin-bottom:12px;color:var(--text2);font-size:.85rem">— yoki test kodi bilan —</div>
+<div style="text-align:center;margin-bottom:12px;color:var(--text2);font-size:.85rem">— saqlangan testlar —</div>
 
-<div style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px">
+<div id="savedTestsSection" style="background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px">
+<div id="savedTestsList">
+<div style="color:var(--text2);font-size:.85rem;text-align:center;padding:12px">Hali saqlangan test yo'q</div>
+</div>
+</div>
+
+<!-- Test kodini yuklash (yashirin, ilova uchun) -->
+<div style="margin-top:12px;text-align:center">
+<button class="btn btn-secondary btn-sm" onclick="App.toggleTestCodeInput()" id="btnToggleCode" style="font-size:.75rem;padding:6px 12px">📥 Test kodi bilan yuklash</button>
+<div id="testCodeSection" style="display:none;margin-top:8px;background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:14px">
 <div class="form-group" style="margin-bottom:8px">
 <textarea class="input" id="testCodeInput" placeholder="Test kodini bu yerga qo'ying..." rows="2" style="font-size:.75rem"></textarea>
 </div>
-<button class="btn btn-secondary btn-block btn-sm" onclick="App.importTestCode()">📥 Test kodini yuklash</button>
+<button class="btn btn-secondary btn-block btn-sm" onclick="App.importTestCode()">📥 Yuklash</button>
+</div>
 </div>
 </div>
 </div>
@@ -698,43 +708,108 @@ function goTeacher(){
 function goStudent(){
   $('roomCodeInput').value = '';
   $('testCodeInput').value = '';
-  $('studentName').value = '';
   $('connStatus').innerHTML = '';
 
-  // Avtomatik login: agar bu qurilmada avval test yaratilgan bo'lsa, login/parolni to'ldirish
+  // Ismni avtomatik to'ldirish
   try{
-    var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
-    var lastTest = null;
-    var lastTime = 0;
-    for(var key in saved){
-      if(saved[key].createdAt && saved[key].createdAt > lastTime){
-        lastTime = saved[key].createdAt;
-        lastTest = saved[key];
-      }
-    }
-    if(lastTest){
-      $('studentLoginInput').value = lastTest.login || '';
-      $('studentPasswordInput').value = lastTest.password || '';
-      if(lastTest.roomCode) $('roomCodeInput').value = lastTest.roomCode;
-      // Ismni ham saqlash
-      var savedName = localStorage.getItem('zakovat_student_name') || '';
-      if(savedName) $('studentName').value = savedName;
-    }
+    var savedName = localStorage.getItem('zakovat_student_name') || '';
+    if(savedName) $('studentName').value = savedName;
   }catch(e){}
 
   showScreen('screenStudentLogin');
 
-  // Agar barcha maydonlar to'ldirilgan bo'lsa, avtomatik ulanish
-  setTimeout(function(){
-    var roomCode = $('roomCodeInput').value.trim();
-    var login = $('studentLoginInput').value.trim();
-    var password = $('studentPasswordInput').value.trim();
-    var name = $('studentName').value.trim();
-    if(roomCode && login && password && name){
-      // Barcha ma'lumotlar bor - avtomatik ulanish
-      connectToRoom();
+  // Saqlangan testlarni ko'rsatish
+  renderSavedTests();
+}
+
+// ========== SAVED TESTS ==========
+function renderSavedTests(){
+  var container = $('savedTestsList');
+  if(!container) return;
+  try{
+    var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
+    var tests = [];
+    for(var key in saved){
+      if(saved[key] && saved[key].questions && saved[key].questions.length > 0){
+        tests.push(saved[key]);
+      }
     }
-  }, 300);
+    if(tests.length === 0){
+      container.innerHTML = '<div style="color:var(--text2);font-size:.85rem;text-align:center;padding:12px">Hali saqlangan test yo\'q</div>';
+      return;
+    }
+    // Eng yangi testlar birinchi
+    tests.sort(function(a,b){ return (b.createdAt||0) - (a.createdAt||0); });
+    container.innerHTML = '';
+    tests.forEach(function(test){
+      var div = document.createElement('div');
+      div.style.cssText = 'background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:12px';
+      div.onmouseenter = function(){ div.style.borderColor='var(--primary-light)'; div.style.background='rgba(108,60,224,0.1)'; };
+      div.onmouseleave = function(){ div.style.borderColor='var(--border)'; div.style.background='var(--bg2)'; };
+      var icon = document.createElement('div');
+      icon.style.cssText = 'font-size:1.8rem;flex-shrink:0';
+      icon.textContent = '📋';
+      var info = document.createElement('div');
+      info.style.cssText = 'flex:1;min-width:0';
+      var nameDiv = document.createElement('div');
+      nameDiv.style.cssText = 'font-weight:600;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';
+      nameDiv.textContent = test.name || 'Nomsiz test';
+      var metaDiv = document.createElement('div');
+      metaDiv.style.cssText = 'color:var(--text2);font-size:.75rem;margin-top:2px;display:flex;gap:8px;flex-wrap:wrap';
+      var qCount = document.createElement('span');
+      qCount.textContent = test.questions.length + ' ta savol';
+      var groupSpan = document.createElement('span');
+      groupSpan.textContent = test.groupName || '';
+      var timeSpan = document.createElement('span');
+      timeSpan.textContent = (test.time || 30) + 's/savol';
+      metaDiv.appendChild(qCount);
+      if(test.groupName) metaDiv.appendChild(groupSpan);
+      metaDiv.appendChild(timeSpan);
+      info.appendChild(nameDiv);
+      info.appendChild(metaDiv);
+      var arrow = document.createElement('div');
+      arrow.style.cssText = 'color:var(--text2);font-size:1.2rem;flex-shrink:0';
+      arrow.textContent = '→';
+      div.appendChild(icon);
+      div.appendChild(info);
+      div.appendChild(arrow);
+      div.onclick = (function(t){ return function(){ openSavedTest(t); }; })(test);
+      container.appendChild(div);
+    });
+  }catch(e){
+    container.innerHTML = '<div style="color:var(--text2);font-size:.85rem;text-align:center;padding:12px">Xato</div>';
+  }
+}
+
+function openSavedTest(test){
+  if(!test || !test.questions || test.questions.length === 0){
+    toast('Test ma\'lumotlari topilmadi','error');
+    return;
+  }
+  var studentName = $('studentName').value.trim();
+  if(!studentName){
+    toast('Ismingizni kiriting','error');
+    $('studentName').focus();
+    return;
+  }
+  // Ismni saqlash
+  try{ localStorage.setItem('zakovat_student_name', studentName); }catch(e){}
+
+  state.testConfig = test;
+  toast(test.questions.length + ' ta savol yuklandi: ' + (test.name || 'Test'),'success');
+
+  // Testni individual rejimda boshlash (admin ruxsatisiz)
+  startQuiz();
+}
+
+function toggleTestCodeInput(){
+  var section = $('testCodeSection');
+  if(!section) return;
+  if(section.style.display === 'none'){
+    section.style.display = 'block';
+  } else {
+    section.style.display = 'none';
+  }
 }
 
 // ========== TEACHER WIZARD ==========
@@ -1483,17 +1558,31 @@ function importTestCode(){
   if(!test || !test.questions || test.questions.length === 0){
     toast('Test kodi noto\'g\'ri','error'); return;
   }
+  // Agar roomCode bo'lmasa, generatsiya qilish
+  if(!test.roomCode) test.roomCode = generateCode(6);
+  // Agar login bo'lmasa, generatsiya qilish
+  if(!test.login) test.login = 'user' + Math.floor(Math.random()*10000);
+  if(!test.password) test.password = generateCode(6).toLowerCase();
+  if(!test.createdAt) test.createdAt = Date.now();
+
   state.testConfig = test;
   // Save to localStorage
   try{
     var saved = JSON.parse(localStorage.getItem('zakovat_tests') || '{}');
-    if(test.roomCode) saved[test.roomCode] = test;
+    saved[test.roomCode] = test;
     localStorage.setItem('zakovat_tests', JSON.stringify(saved));
   }catch(e){}
-  toast(test.questions.length + ' ta savol yuklandi! Endi xona kodi va login/parol bilan ulaning','success');
-  $('studentLoginInput').value = test.login || '';
-  $('studentPasswordInput').value = test.password || '';
-  if(test.roomCode) $('roomCodeInput').value = test.roomCode;
+  toast(test.questions.length + ' ta savol yuklandi!','success');
+  // Saqlangan testlarni yangilash va testni boshlash
+  renderSavedTests();
+  // Avtomatik boshlash
+  var studentName = $('studentName').value.trim();
+  if(studentName){
+    try{ localStorage.setItem('zakovat_student_name', studentName); }catch(e){}
+    startQuiz();
+  } else {
+    toast('Ismingizni kiriting va testni saqlangan ro\'yxatdan boshlang','info');
+  }
 }
 
 // ========== LOGIN WITH CREDENTIALS ==========
@@ -2040,7 +2129,8 @@ return {
   restartTest: restartTest,
   goToControlPanel: goToControlPanel,
   resumeTest: resumeTestFn,
-  freshStartTest: freshStartTestFn
+  freshStartTest: freshStartTestFn,
+  toggleTestCodeInput: toggleTestCodeInput
 };
 
 // Sahifa yuklanganda test progressni tekshirish
