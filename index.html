@@ -4,28 +4,28 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="google-site-verification" content="xZakovatPlaceholderVerify">
-<meta name="description" content="TestPro - Axborot tizimlari bo'yicha interaktiv test platformasi. Test tuzing, guruhda boshqaring va real vaqtda natijalarni kuzating.">
+<meta name="description" content="Zakovat - Axborot tizimlari bo'yicha interaktiv test platformasi. Test tuzing, guruhda boshqaring va real vaqtda natijalarni kuzating.">
 <meta name="keywords" content="zakovat, test, axborot tizimi, quiz, LMS, o'qituvchi, talaba, O'zbekiston">
-<meta name="author" content="TestPro">
+<meta name="author" content="Zakovat">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#6c3ce0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Zakovat">
-<meta property="og:title" content="TestPro - Interaktiv Test Platformasi">
+<meta property="og:title" content="Zakovat - Interaktiv Test Platformasi">
 <meta property="og:description" content="Axborot tizimlari bo'yicha test tuzing va guruhda boshqaring">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zakovat.app">
 <meta property="og:image" content="https://zakovat.app/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="TestPro - Interaktiv Test Platformasi">
+<meta name="twitter:title" content="Zakovat - Interaktiv Test Platformasi">
 <meta name="twitter:description" content="Axborot tizimlari bo'yicha test tuzing va guruhda boshqaring">
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWmFrb3ZhdCIsInNob3J0X25hbWUiOiJaYWtvdmF0Iiwic3RhcnRfdXJsIjoiLi8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYwYTFlIiwidGhlbWVfY29sb3IiOiIjNmMzY2UwIn0=">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"Zakovat","description":"Interaktiv test platformasi","applicationCategory":"EducationalApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"UZS"}}
 </script>
-<title>TestPro </title>
+<title>Zakovat - Interaktiv Test Platformasi</title>
 <style>
 :root{--primary:#6c3ce0;--primary-light:#8b5cf6;--primary-dark:#5b21b6;--bg:#0f0a1e;--bg2:#1a1333;--bg3:#241b44;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--info:#3b82f6;--text:#e2e0eb;--text2:#a8a2bd;--card:rgba(40,30,80,0.85);--border:rgba(108,60,224,0.3);--radius:12px;--shadow:0 4px 24px rgba(0,0,0,0.4)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -157,6 +157,20 @@ label{display:block;margin-bottom:6px;font-size:.875rem;color:var(--text2);font-
 .waiting-dots span{width:12px;height:12px;border-radius:50%;background:var(--primary);animation:pulse 1.4s ease-in-out infinite}
 .waiting-dots span:nth-child(2){animation-delay:.2s}
 .waiting-dots span:nth-child(3){animation-delay:.4s}
+/* Admin Panel */
+.admin-panel{position:fixed;top:0;right:-340px;width:320px;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:8000;transition:right .3s ease;overflow-y:auto;padding:20px;box-shadow:-4px 0 20px rgba(0,0,0,.3)}
+.admin-panel.open{right:0}
+.admin-toggle{position:fixed;top:50%;right:0;transform:translateY(-50%);z-index:8001;background:var(--primary);color:#fff;border:none;border-radius:8px 0 0 8px;padding:10px 6px;cursor:pointer;font-size:.7rem;writing-mode:vertical-rl;text-orientation:mixed;box-shadow:-2px 0 10px rgba(108,60,224,.4);transition:all .2s;letter-spacing:1px}
+.admin-toggle:hover{padding-right:10px;background:var(--primary-light)}
+.admin-close{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--text2);font-size:1.2rem;cursor:pointer}
+.admin-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:7999;display:none}
+.admin-overlay.open{display:block}
+.msg-item{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;font-size:.8rem}
+.msg-item .msg-from{color:var(--primary-light);font-weight:600;font-size:.75rem}
+.msg-item .msg-text{color:var(--text);margin-top:4px}
+.msg-item .msg-time{color:var(--text2);font-size:.7rem;margin-top:4px}
+.test-add-people{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;font-size:.7rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:rgba(59,130,246,.1);color:var(--info);transition:all .2s}
+.test-add-people:hover{background:rgba(59,130,246,.2);border-color:var(--info)}
 @media(max-width:640px){
 .screen{padding:12px}
 .card{padding:16px;border-radius:10px}
@@ -168,6 +182,7 @@ label{display:block;margin-bottom:6px;font-size:.875rem;color:var(--text2);font-
 .q-dot{width:28px;height:28px;font-size:.7rem}
 .toast-container{top:10px;right:10px;left:10px;max-width:none}
 .header-bar{padding:0}
+.admin-panel{width:280px;right:-300px}
 }
 </style>
 </head>
@@ -177,16 +192,128 @@ label{display:block;margin-bottom:6px;font-size:.875rem;color:var(--text2);font-
 <div class="bg-orb bg-orb-2"></div>
 <div class="toast-container" id="toastContainer"></div>
 
+<!-- Admin Toggle Button (always visible when logged in) -->
+<button class="admin-toggle" id="adminToggle" onclick="App.toggleAdminPanel()" style="display:none">A D M I N</button>
+
+<!-- Admin Overlay -->
+<div class="admin-overlay" id="adminOverlay" onclick="App.toggleAdminPanel()"></div>
+
+<!-- Admin Panel (right side) -->
+<div class="admin-panel" id="adminPanel">
+<button class="admin-close" onclick="App.toggleAdminPanel()">✕</button>
+<div style="margin-bottom:20px">
+<div style="font-size:1.5rem;margin-bottom:8px">⚙️</div>
+<h2 style="font-size:1.1rem;margin-bottom:4px">Admin paneli</h2>
+<p style="color:var(--text2);font-size:.75rem">Shaxsiy boshqaruv paneli</p>
+</div>
+<div class="divider"></div>
+
+<!-- Admin Info -->
+<div style="margin-bottom:16px">
+<h3 style="font-size:.9rem;margin-bottom:8px">📋 Admin ma'lumotlari</h3>
+<div style="background:var(--bg);border-radius:8px;padding:12px;font-size:.8rem">
+<div style="margin-bottom:6px"><span style="color:var(--text2)">Email:</span> <span style="color:var(--primary-light)">dodikvahobjonov@gmail.com</span></div>
+<div style="margin-bottom:6px"><span style="color:var(--text2)">Rol:</span> <span class="badge badge-primary">Asosiy admin</span></div>
+</div>
+</div>
+<div class="divider"></div>
+
+<!-- Contact Admin -->
+<div style="margin-bottom:16px">
+<h3 style="font-size:.9rem;margin-bottom:8px">✉️ Adminga murojat</h3>
+<div class="form-group">
+<label>Xabar mavzusi</label>
+<input class="input" id="msgSubject" placeholder="Mavzu..." style="font-size:.85rem;padding:8px 12px">
+</div>
+<div class="form-group">
+<label>Xabar matni</label>
+<textarea class="input" id="msgText" rows="3" placeholder="Xabaringizni yozing..." style="font-size:.85rem;padding:8px 12px;min-height:60px"></textarea>
+</div>
+<button class="btn btn-primary btn-block btn-sm" onclick="App.sendAdminMessage()">📤 Yuborish</button>
+</div>
+<div class="divider"></div>
+
+<!-- User Messages -->
+<div style="margin-bottom:16px">
+<h3 style="font-size:.9rem;margin-bottom:8px">📨 Yuborilgan xabarlar</h3>
+<div id="adminMessages">
+<div style="color:var(--text2);font-size:.8rem;text-align:center;padding:12px">Hali xabar yo'q</div>
+</div>
+</div>
+<div class="divider"></div>
+
+<!-- Account Info -->
+<div style="margin-bottom:16px">
+<h3 style="font-size:.9rem;margin-bottom:8px">👤 Akkount ma'lumotlari</h3>
+<div id="adminAccountInfo" style="background:var(--bg);border-radius:8px;padding:12px;font-size:.8rem">
+<div style="color:var(--text2)">Akkount ma'lumotlari yo'q</div>
+</div>
+</div>
+<div class="divider"></div>
+<button class="btn btn-danger btn-block btn-sm" onclick="App.logoutAccount()">🚪 Chiqish</button>
+</div>
+
 <!-- Modal -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)App.closeModal()">
 <div class="modal" id="modalContent"></div>
 </div>
 
-<!-- Screen 1: Landing -->
-<div class="screen active" id="screenLanding">
+<!-- Screen 0: Auth (Login/Register) -->
+<div class="screen active" id="screenAuth">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:420px">
+<div style="animation:float 4s ease-in-out infinite;margin-bottom:8px;font-size:4rem">📚</div>
+<div class="logo">Zakovat</div>
+<div class="logo-sub">Interaktiv test platformasi</div>
+<div class="card" id="authCard">
+<div class="tab-bar" style="margin-bottom:16px">
+<button class="tab-btn active" id="tabLogin" onclick="App.setAuthTab('login')">Kirish</button>
+<button class="tab-btn" id="tabRegister" onclick="App.setAuthTab('register')">Ro'yxatdan o'tish</button>
+</div>
+
+<!-- Login Form -->
+<div id="authLoginForm">
+<div class="form-group">
+<label>Email</label>
+<input class="input" id="authEmail" type="email" placeholder="email@example.com">
+</div>
+<div class="form-group">
+<label>Parol</label>
+<input class="input" id="authPassword" type="password" placeholder="Parolingiz">
+</div>
+<button class="btn btn-primary btn-block" onclick="App.loginAccount()">🔑 Kirish</button>
+</div>
+
+<!-- Register Form -->
+<div id="authRegisterForm" style="display:none">
+<div class="form-group">
+<label>To'liq ism</label>
+<input class="input" id="authName" placeholder="Ism Familiya">
+</div>
+<div class="form-group">
+<label>Email</label>
+<input class="input" id="authRegEmail" type="email" placeholder="email@example.com">
+</div>
+<div class="form-group">
+<label>Parol</label>
+<input class="input" id="authRegPassword" type="password" placeholder="Kamida 6 belgi">
+</div>
+<div class="form-group">
+<label>Parolni tasdiqlash</label>
+<input class="input" id="authRegPassword2" type="password" placeholder="Parolni qayta kiriting">
+</div>
+<button class="btn btn-success btn-block" onclick="App.registerAccount()">✅ Ro'yxatdan o'tish</button>
+</div>
+
+<div style="margin-top:12px;text-align:center;color:var(--text2);font-size:.75rem">
+Akkount ma'lumotlari qurilmangizda saqlanadi
+</div>
+</div>
+</div>
+</div>
+<div class="screen" id="screenLanding">
 <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:500px">
 <div style="animation:float 4s ease-in-out infinite;margin-bottom:8px;font-size:4rem">📚</div>
-<div class="logo">TestPro</div>
+<div class="logo">Zakovat</div>
 <div class="logo-sub">Interaktiv test platformasi</div>
 <div class="card" style="margin-bottom:16px;cursor:pointer" onclick="App.goTeacher()">
 <div style="display:flex;align-items:center;gap:16px">
@@ -603,7 +730,7 @@ var defaultQuestions = [
 
 // ========== STATE ==========
 var state = {
-  currentScreen: 'screenLanding',
+  currentScreen: 'screenAuth',
   teacherStep: 1,
   questions: [],
   testConfig: null,
@@ -621,7 +748,9 @@ var state = {
   isHostTakingTest: false,
   // file libs loaded
   pdfJsLoaded: false,
-  mammothLoaded: false
+  mammothLoaded: false,
+  // account
+  currentUser: null
 };
 
 // ========== HELPERS ==========
@@ -684,6 +813,217 @@ function encodeTest(test){
 function decodeTest(code){
   try{ return JSON.parse(decodeURIComponent(escape(atob(code)))); }
   catch(e){ try{ return JSON.parse(atob(code)); }catch(e2){ return null; } }
+}
+
+// ========== AUTH / ACCOUNT ==========
+function setAuthTab(tab){
+  var tabs = [$('tabLogin'), $('tabRegister')];
+  tabs.forEach(function(t){ t.classList.remove('active'); });
+  if(tab==='login'){
+    tabs[0].classList.add('active');
+    $('authLoginForm').style.display = 'block';
+    $('authRegisterForm').style.display = 'none';
+  } else {
+    tabs[1].classList.add('active');
+    $('authLoginForm').style.display = 'none';
+    $('authRegisterForm').style.display = 'block';
+  }
+}
+
+function registerAccount(){
+  var name = $('authName').value.trim();
+  var email = $('authRegEmail').value.trim();
+  var pw = $('authRegPassword').value;
+  var pw2 = $('authRegPassword2').value;
+  if(!name){ toast('Ismingizni kiriting','error'); return; }
+  if(!email || email.indexOf('@')<1){ toast('To\'g\'ri email kiriting','error'); return; }
+  if(pw.length < 6){ toast('Parol kamida 6 belgi bo\'lishi kerak','error'); return; }
+  if(pw !== pw2){ toast('Parollar mos kelmayapti','error'); return; }
+
+  // Akkountni saqlash
+  var account = {
+    id: 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
+    name: name,
+    email: email,
+    password: pw,
+    createdAt: Date.now()
+  };
+
+  try{
+    var accounts = JSON.parse(localStorage.getItem('zakovat_accounts') || '{}');
+    if(accounts[email]){
+      toast('Bu email bilan akkaunt mavjud. Kirish sahifasidan foydalaning','error');
+      return;
+    }
+    accounts[email] = account;
+    localStorage.setItem('zakovat_accounts', JSON.stringify(accounts));
+  }catch(e){
+    toast('Xato: akkaunt saqlanmadi','error');
+    return;
+  }
+
+  // Avtomatik kirish
+  loginWithAccount(account);
+  toast('Akkount yaratildi! Xush kelibsiz, ' + name,'success');
+}
+
+function loginAccount(){
+  var email = $('authEmail').value.trim();
+  var pw = $('authPassword').value;
+  if(!email){ toast('Email kiriting','error'); return; }
+  if(!pw){ toast('Parol kiriting','error'); return; }
+
+  try{
+    var accounts = JSON.parse(localStorage.getItem('zakovat_accounts') || '{}');
+    var account = accounts[email];
+    if(!account || account.password !== pw){
+      toast('Email yoki parol noto\'g\'ri','error');
+      return;
+    }
+    loginWithAccount(account);
+    toast('Xush kelibsiz, ' + account.name + '!','success');
+  }catch(e){
+    toast('Kirish xatosi','error');
+  }
+}
+
+function loginWithAccount(account){
+  state.currentUser = account;
+  try{
+    localStorage.setItem('zakovat_current_user', JSON.stringify(account));
+    // Talaba ismini saqlash
+    localStorage.setItem('zakovat_student_name', account.name);
+    $('studentName').value = account.name;
+  }catch(e){}
+
+  // Admin tugmasini ko'rsatish
+  $('adminToggle').style.display = 'block';
+  // Akkount ma'lumotlarini yangilash
+  updateAdminAccountInfo();
+  // Xabarlarni ko'rsatish
+  renderAdminMessages();
+  // Bosh sahifaga o'tish
+  goLanding();
+}
+
+function logoutAccount(){
+  state.currentUser = null;
+  try{
+    localStorage.removeItem('zakovat_current_user');
+  }catch(e){}
+  $('adminToggle').style.display = 'none';
+  // Admin panelni yopish
+  $('adminPanel').classList.remove('open');
+  $('adminOverlay').classList.remove('open');
+  // Auth sahifasiga o'tish
+  showScreen('screenAuth');
+  toast('Tizimdan chiqdingiz','info');
+}
+
+function checkExistingLogin(){
+  try{
+    var saved = localStorage.getItem('zakovat_current_user');
+    if(saved){
+      var account = JSON.parse(saved);
+      if(account && account.email){
+        state.currentUser = account;
+        $('studentName').value = account.name;
+        $('adminToggle').style.display = 'block';
+        updateAdminAccountInfo();
+        renderAdminMessages();
+        goLanding();
+        return true;
+      }
+    }
+  }catch(e){}
+  return false;
+}
+
+function updateAdminAccountInfo(){
+  if(!state.currentUser) return;
+  var info = $('adminAccountInfo');
+  if(!info) return;
+  var isAdmin = state.currentUser.email === 'dodikvahobjonov@gmail.com';
+  info.innerHTML = '<div style="margin-bottom:6px"><span style="color:var(--text2)">Ism:</span> ' + escHtml(state.currentUser.name) + '</div>' +
+    '<div style="margin-bottom:6px"><span style="color:var(--text2)">Email:</span> <span style="color:var(--primary-light)">' + escHtml(state.currentUser.email) + '</span></div>' +
+    '<div style="margin-bottom:6px"><span style="color:var(--text2)">Rol:</span> <span class="badge ' + (isAdmin ? 'badge-success' : 'badge-primary') + '">' + (isAdmin ? 'Admin' : 'Foydalanuvchi') + '</span></div>' +
+    '<div><span style="color:var(--text2)">Qo\'shilgan:</span> ' + new Date(state.currentUser.createdAt).toLocaleDateString('uz') + '</div>';
+}
+
+// ========== ADMIN PANEL ==========
+function toggleAdminPanel(){
+  var panel = $('adminPanel');
+  var overlay = $('adminOverlay');
+  if(panel.classList.contains('open')){
+    panel.classList.remove('open');
+    overlay.classList.remove('open');
+  } else {
+    panel.classList.add('open');
+    overlay.classList.add('open');
+  }
+}
+
+function sendAdminMessage(){
+  if(!state.currentUser){ toast('Avval tizimga kiring','error'); return; }
+  var subject = $('msgSubject').value.trim();
+  var text = $('msgText').value.trim();
+  if(!subject){ toast('Mavzu kiriting','error'); return; }
+  if(!text){ toast('Xabar matnini kiriting','error'); return; }
+
+  var message = {
+    id: 'msg_' + Date.now(),
+    from: state.currentUser.name,
+    fromEmail: state.currentUser.email,
+    subject: subject,
+    text: text,
+    time: Date.now(),
+    read: false
+  };
+
+  try{
+    var messages = JSON.parse(localStorage.getItem('zakovat_messages') || '[]');
+    messages.unshift(message);
+    localStorage.setItem('zakovat_messages', JSON.stringify(messages));
+  }catch(e){}
+
+  // Email orqali yuborish (mailto:)
+  var mailBody = 'Ism: ' + state.currentUser.name + '\nEmail: ' + state.currentUser.email + '\n\n' + text;
+  var mailLink = 'mailto:dodikvahobjonov@gmail.com?subject=' + encodeURIComponent('[Zakovat] ' + subject) + '&body=' + encodeURIComponent(mailBody);
+
+  toast('Xabar yuborildi!','success');
+  $('msgSubject').value = '';
+  $('msgText').value = '';
+  renderAdminMessages();
+
+  // Email klientini ochish
+  window.open(mailLink, '_blank');
+}
+
+function renderAdminMessages(){
+  var container = $('adminMessages');
+  if(!container) return;
+  try{
+    var messages = JSON.parse(localStorage.getItem('zakovat_messages') || '[]');
+    // Faqat joriy foydalanuvchining xabarlarini ko'rsatish
+    if(state.currentUser){
+      messages = messages.filter(function(m){ return m.fromEmail === state.currentUser.email; });
+    }
+    if(messages.length === 0){
+      container.innerHTML = '<div style="color:var(--text2);font-size:.8rem;text-align:center;padding:12px">Hali xabar yo\'q</div>';
+      return;
+    }
+    container.innerHTML = '';
+    messages.slice(0, 20).forEach(function(m){
+      var div = document.createElement('div');
+      div.className = 'msg-item';
+      div.innerHTML = '<div class="msg-from">' + escHtml(m.subject) + '</div>' +
+        '<div class="msg-text">' + escHtml(m.text).substring(0, 100) + (m.text.length > 100 ? '...' : '') + '</div>' +
+        '<div class="msg-time">' + new Date(m.time).toLocaleString('uz') + '</div>';
+      container.appendChild(div);
+    });
+  }catch(e){
+    container.innerHTML = '<div style="color:var(--text2);font-size:.8rem;text-align:center">Xato</div>';
+  }
 }
 
 // ========== NAVIGATION ==========
@@ -772,6 +1112,13 @@ function renderSavedTests(){
       arrow.textContent = '→';
       div.appendChild(icon);
       div.appendChild(info);
+      // Odam qo'shish tugmasi
+      var addPeopleBtn = document.createElement('span');
+      addPeopleBtn.className = 'test-add-people';
+      addPeopleBtn.innerHTML = '👥';
+      addPeopleBtn.title = 'Odam qo\'shish';
+      addPeopleBtn.onclick = (function(t){ return function(e){ e.stopPropagation(); addPeopleToTestFn(t); }; })(test);
+      div.appendChild(addPeopleBtn);
       div.appendChild(arrow);
       div.onclick = (function(t){ return function(){ openSavedTest(t); }; })(test);
       container.appendChild(div);
@@ -810,6 +1157,39 @@ function toggleTestCodeInput(){
   } else {
     section.style.display = 'none';
   }
+}
+
+// ========== ADD PEOPLE TO TEST ==========
+function addPeopleToTestFn(test){
+  if(!test || !test.roomCode){
+    toast('Test ma\'lumotlari topilmadi','error');
+    return;
+  }
+  // Login/parolni to'ldirish va xona kodini ko'rsatish
+  $('studentLoginInput').value = test.login || '';
+  $('studentPasswordInput').value = test.password || '';
+  $('roomCodeInput').value = test.roomCode || '';
+  toast('Xona kodi: ' + test.roomCode + ' - boshqalarga yuboring va ulanishsin','info');
+  // Modal ko'rsatish
+  var modalHtml = '<div style="text-align:center">';
+  modalHtml += '<div style="font-size:3rem;margin-bottom:8px">👥</div>';
+  modalHtml += '<h2 style="margin-bottom:12px">Odam qo\'shish</h2>';
+  modalHtml += '<p style="color:var(--text2);font-size:.85rem;margin-bottom:16px">Boshqalar ushbu ma\'lumotlar bilan testga qo\'shilishi mumkin:</p>';
+  modalHtml += '<div style="margin-bottom:12px"><div style="color:var(--text2);font-size:.75rem;margin-bottom:4px">XONA KODI</div>';
+  modalHtml += '<div class="code-display" id="addPeopleRoomCode">' + escHtml(test.roomCode) + '</div>';
+  modalHtml += '<button class="copy-btn" onclick="App.copyCode(\'addPeopleRoomCode\')">📋 Nusxalash</button></div>';
+  modalHtml += '<div style="display:flex;gap:12px;margin-bottom:12px">';
+  modalHtml += '<div style="flex:1"><div style="color:var(--text2);font-size:.75rem;margin-bottom:4px">Login</div>';
+  modalHtml += '<div style="background:var(--bg);padding:8px;border-radius:6px;font-weight:600;font-size:.9rem">' + escHtml(test.login || '') + '</div></div>';
+  modalHtml += '<div style="flex:1"><div style="color:var(--text2);font-size:.75rem;margin-bottom:4px">Parol</div>';
+  modalHtml += '<div style="background:var(--bg);padding:8px;border-radius:6px;font-weight:600;font-size:.9rem">' + escHtml(test.password || '') + '</div></div>';
+  modalHtml += '</div>';
+  modalHtml += '<div style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);border-radius:8px;padding:10px;font-size:.8rem;text-align:left;margin-bottom:12px">';
+  modalHtml += '📋 <b>Ulanish uchun:</b> "Test topshirish" → Xona kodi, Login va Parolni kiriting → "Ulanish" tugmasini bosing';
+  modalHtml += '</div>';
+  modalHtml += '<div class="modal-actions"><button class="btn btn-primary btn-block" onclick="App.closeModal()">Tushundim ✅</button></div>';
+  modalHtml += '</div>';
+  showModal(modalHtml);
 }
 
 // ========== TEACHER WIZARD ==========
@@ -2130,10 +2510,19 @@ return {
   goToControlPanel: goToControlPanel,
   resumeTest: resumeTestFn,
   freshStartTest: freshStartTestFn,
-  toggleTestCodeInput: toggleTestCodeInput
+  toggleTestCodeInput: toggleTestCodeInput,
+  setAuthTab: setAuthTab,
+  registerAccount: registerAccount,
+  loginAccount: loginAccount,
+  logoutAccount: logoutAccount,
+  toggleAdminPanel: toggleAdminPanel,
+  sendAdminMessage: sendAdminMessage,
+  addPeopleToTest: addPeopleToTestFn
 };
 
-// Sahifa yuklanganda test progressni tekshirish
+// Sahifa yuklanganda: avval akkaunt tekshirish, keyin test progress
+checkExistingLogin();
+
 try{
   var _savedProgress = localStorage.getItem('zakovat_quiz_progress');
   if(_savedProgress){
