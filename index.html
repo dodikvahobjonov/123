@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="google-site-verification" content="xZakovatPlaceholderVerify">
-<meta name="description" content="Zakovat - Axborot tizimlari bo'yicha interaktiv test platformasi. Test tuzing, guruhda boshqaring va real vaqtda natijalarni kuzating.">
+<meta name="description" content="TestPro - Axborot tizimlari bo'yicha interaktiv test platformasi. Test tuzing, guruhda boshqaring va real vaqtda natijalarni kuzating.">
 <meta name="keywords" content="zakovat, test, axborot tizimi, quiz, LMS, o'qituvchi, talaba, O'zbekiston">
 <meta name="author" content="Zakovat">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#6c3ce0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Zakovat">
+<meta name="apple-mobile-web-app-title" content="TestPro">
 <meta property="og:title" content="Zakovat - Interaktiv Test Platformasi">
 <meta property="og:description" content="Axborot tizimlari bo'yicha test tuzing va guruhda boshqaring">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://zakovat.app">
 <meta property="og:image" content="https://zakovat.app/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Zakovat - Interaktiv Test Platformasi">
+<meta name="twitter:title" content="TestPro">
 <meta name="twitter:description" content="Axborot tizimlari bo'yicha test tuzing va guruhda boshqaring">
 <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiWmFrb3ZhdCIsInNob3J0X25hbWUiOiJaYWtvdmF0Iiwic3RhcnRfdXJsIjoiLi8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjMGYwYTFlIiwidGhlbWVfY29sb3IiOiIjNmMzY2UwIn0=">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%9A%3C/text%3E%3C/svg%3E">
@@ -212,7 +212,9 @@ label{display:block;margin-bottom:6px;font-size:.875rem;color:var(--text2);font-
 <div style="margin-bottom:16px">
 <h3 style="font-size:.9rem;margin-bottom:8px">📋 Admin ma'lumotlari</h3>
 <div style="background:var(--bg);border-radius:8px;padding:12px;font-size:.8rem">
-<div style="margin-bottom:6px"><span style="color:var(--text2)">Email:</span> <span style="color:var(--primary-light)">dodikvahobjonov@gmail.com</span></div>
+<div style="margin-bottom:6px"><span style="color:var(--text2)">Email:</span> <a href="mailto:dodikvahobjonov@gmail.com" style="color:var(--primary-light);text-decoration:none">dodikvahobjonov@gmail.com</a></div>
+<div style="margin-bottom:6px"><span style="color:var(--text2)">Telefon:</span> <a href="tel:+998901234567" style="color:var(--primary-light);text-decoration:none">+998 90 123 45 67</a></div>
+<div style="margin-bottom:6px"><span style="color:var(--text2)">Telegram:</span> <a href="https://t.me/zakovat_admin" target="_blank" style="color:var(--primary-light);text-decoration:none">@zakovat_admin</a></div>
 <div style="margin-bottom:6px"><span style="color:var(--text2)">Rol:</span> <span class="badge badge-primary">Asosiy admin</span></div>
 </div>
 </div>
@@ -365,24 +367,62 @@ WebRTC orqali real vaqtda sinxronizatsiya &bull; Hech qanday server talab emas
 <div class="form-group">
 <label>Savollarni yuklash</label>
 <div class="tab-bar" id="uploadTabs">
-<button class="tab-btn active" onclick="App.setUploadTab('file')">Fayl</button>
-<button class="tab-btn" onclick="App.setUploadTab('manual')">Qo'lda kiritish</button>
-<button class="tab-btn" onclick="App.setUploadTab('default')">Standart</button>
+<button class="tab-btn active" onclick="App.setUploadTab('manual')">Qo'lda kiritish</button>
+<button class="tab-btn" onclick="App.setUploadTab('guide')">Qo'llanma</button>
 </div>
-<div id="uploadFile">
-<div class="file-input-wrap">
-<div class="file-input-label">📄 Word/PDF fayl tanlang</div>
-<input type="file" accept=".pdf,.docx,.txt" onchange="App.handleFileUpload(event)">
-</div>
-<div id="fileStatus" style="margin-top:8px;font-size:.8rem;color:var(--text2)"></div>
-</div>
-<div id="uploadManual" style="display:none">
+<div id="uploadManual">
 <textarea class="input" id="manualInput" placeholder="1. Savol matni&#10;A) variant&#10;B) variant&#10;C) variant&#10;D) variant&#10;To'g'ri javob: A&#10;&#10;2. Savol matni..." rows="8"></textarea>
 <button class="btn btn-secondary btn-sm" style="margin-top:8px" onclick="App.parseManual()">Tahlil qilish</button>
 </div>
-<div id="uploadDefault" style="display:none">
-<p style="color:var(--text2);font-size:.85rem;margin-bottom:8px">100 ta "Axborot Tizimi" standart savollari yuklanadi</p>
-<button class="btn btn-primary btn-sm" onclick="App.loadDefaults()">Standart savollarni yuklash</button>
+<div id="uploadGuide" style="display:none">
+<div style="background:var(--bg);border-radius:10px;padding:16px;font-size:.85rem;line-height:1.7">
+<h3 style="font-size:1rem;margin-bottom:12px;color:var(--primary-light)">📖 Saytdan foydalanish qo'llanmasi</h3>
+
+<div style="margin-bottom:14px">
+<h4 style="font-size:.9rem;margin-bottom:6px">✏️ Test tuzish</h4>
+<ol style="padding-left:20px;color:var(--text2);font-size:.8rem">
+<li>"Test tuzish" tugmasini bosing</li>
+<li>Test nomi va har bir savol uchun vaqtni kiriting</li>
+<li>"Qo'lda kiritish" orqali savollarni yozing (format: 1. Savol, A/B/C/D variantlar, To'g'ri javob: A)</li>
+<li>"Tahlil qilish" tugmasini bosing va savollar yuklanganini tekshiring</li>
+<li>"Keyingi" tugmasini bosib savollarni tahrirlang</li>
+<li>Guruh nomi, login va parolni belgilang</li>
+<li>"Testni yaratish" tugmasini bosing</li>
+<li>Xona kodi, login va parolni talabalarga yuboring</li>
+</ol>
+</div>
+
+<div style="margin-bottom:14px">
+<h4 style="font-size:.9rem;margin-bottom:6px">📝 Test topshirish</h4>
+<ol style="padding-left:20px;color:var(--text2);font-size:.8rem">
+<li>"Test topshirish" tugmasini bosing</li>
+<li>Ismingizni kiriting</li>
+<li>O'qituvchi bergan xona kodini, login va parolni kiriting</li>
+<li>"Ulanish" tugmasini bosing va test boshlanishini kuting</li>
+<li>Savollarga javob bering (noto'g'ri javobda to'g'ri javobni tanlash kerak)</li>
+<li>Test yakunida natijalaringizni ko'rasiz</li>
+</ol>
+</div>
+
+<div style="margin-bottom:14px">
+<h4 style="font-size:.9rem;margin-bottom:6px">👥 Saqlangan testlar</h4>
+<p style="color:var(--text2);font-size:.8rem">Bir marta kirgan testlar avtomatik saqlanadi. Keyingi kirishda qayta login kiritish shart emas. Saqlangan testlar ro'yxatidan istalgan testni tanlab boshlashingiz mumkin.</p>
+</div>
+
+<div style="margin-bottom:14px">
+<h4 style="font-size:.9rem;margin-bottom:6px">👥 Odam qo'shish</h4>
+<p style="color:var(--text2);font-size:.8rem">Saqlangan testlarda "👥" tugmasini bosib, yangi talabalarni qo'shish uchun xona kodi, login va parolni ulashing mumkin. Bu eski ishtirokchilarni o'chirib tashlamaydi.</p>
+</div>
+
+<div style="margin-bottom:14px">
+<h4 style="font-size:.9rem;margin-bottom:6px">⚙️ Admin paneli</h4>
+<p style="color:var(--text2);font-size:.8rem">O'ng tomonda "ADMIN" tugmasini bosib shaxsiy panelingizni oching. U yerdan admin bilan bog'lanish, xabar yuborish va akkaunt ma'lumotlarini ko'rishingiz mumkin.</p>
+</div>
+
+<div style="background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);border-radius:8px;padding:10px;font-size:.75rem;color:var(--text2)">
+💡 <b>Maslahat:</b> Guruh rejimida o'qituvchi "Testni boshlash" tugmasini bosganda barcha talabalarga test bir vaqtda yuboriladi. Individual rejimda esa talabalar mustaqil boshlashi mumkin.
+</div>
+</div>
 </div>
 </div>
 <div id="questionCount" style="margin-top:12px;display:none">
@@ -1227,12 +1267,10 @@ function teacherNext(step){
 function setUploadTab(tab){
   var tabs = document.querySelectorAll('#uploadTabs .tab-btn');
   tabs.forEach(function(t){ t.classList.remove('active'); });
-  if(tab==='file') tabs[0].classList.add('active');
-  else if(tab==='manual') tabs[1].classList.add('active');
-  else tabs[2].classList.add('active');
-  $('uploadFile').style.display = tab==='file'?'block':'none';
+  if(tab==='manual') tabs[0].classList.add('active');
+  else tabs[1].classList.add('active');
   $('uploadManual').style.display = tab==='manual'?'block':'none';
-  $('uploadDefault').style.display = tab==='default'?'block':'none';
+  $('uploadGuide').style.display = tab==='guide'?'block':'none';
 }
 
 function setStudentTab(tab){
